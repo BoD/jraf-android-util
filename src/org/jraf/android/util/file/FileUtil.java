@@ -40,13 +40,14 @@ public class FileUtil {
      * Creates an empty temporary file using the given base name and suffix as part of the file name.<br/>
      * If {@code suffix} is {@code null}, {@code ".tmp"} is used.
      * 
-     * @param baseName the base name to use (must be at least 3 characters long).
+     * @param baseName the base name to use (must not be {@code null}).
      * @param suffix the suffix to use (can be {@code null}).
      * @return an empty temporary file.
      * @throws RuntimeException if the file could not be created.
-     * @throws IllegalArgumentException if the length of {@code baseName} is less than 3.
+     * @throws IllegalArgumentException if {@code baseName} is {@code null}.
      */
     public static File newTemporaryFile(Context context, String baseName, String suffix) {
+        if (baseName == null) throw new IllegalArgumentException("baseName must not be null");
         // API Level 7 Equivalent of context.getExternalCacheDir()
         File externalStorageDirectory = Environment.getExternalStorageDirectory();
         File cacheDir = new File(externalStorageDirectory, "Android/data/" + context.getPackageName() + "/cache");
