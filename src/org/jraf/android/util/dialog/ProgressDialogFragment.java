@@ -51,7 +51,7 @@ public class ProgressDialogFragment extends DialogFragment {
         return res;
     }
 
-    public void show(FragmentManager fragmentManager) {
-        show(fragmentManager, FRAGMENT_TAG);
+    public void show(FragmentManager manager) {
+        show(manager, FRAGMENT_TAG);
     }
 }
