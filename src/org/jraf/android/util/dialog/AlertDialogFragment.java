@@ -25,6 +25,7 @@ package org.jraf.android.util.dialog;
 
 import java.io.Serializable;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -33,6 +34,12 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 
+/**
+ * A simple implementation of an {@link AlertDialog}.<br/>
+ * If the calling {@link Activity} implements {@link AlertDialogListener}, it will be notified of button clicks.
+ * 
+ * @see AlertDialogListener
+ */
 public class AlertDialogFragment extends DialogFragment {
     private static final String PREFIX = AlertDialogFragment.class.getName() + ".";
     public static final String FRAGMENT_TAG = PREFIX + "FRAGMENT_TAG";
@@ -49,6 +56,18 @@ public class AlertDialogFragment extends DialogFragment {
     private int mNegativeButtonId;
     private Object mPayload;
 
+    /**
+     * Create a new {@link AlertDialogFragment}.
+     * 
+     * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
+     * @param titleId The resource id to be used for the title text, or {@code 0} for no title.
+     * @param messageId The resource id to be used for the message text, or {@code 0} for no message.
+     * @param iconId The resource id to be used for the icon drawable, or {@code 0} for no icon.
+     * @param positiveButtonId The resource id to be used for the positive button text, or {@code 0} for no positive button.
+     * @param negativeButtonId The resource id to be used for the negative button text, or {@code 0} for no negative button.
+     * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
+     * @return The newly built {@link AlertDialogFragment}.
+     */
     public static AlertDialogFragment newInstance(int tag, int titleId, int messageId, int iconId, int positiveButtonId, int negativeButtonId,
             Serializable payload) {
         final AlertDialogFragment res = new AlertDialogFragment();
@@ -64,6 +83,18 @@ public class AlertDialogFragment extends DialogFragment {
         return res;
     }
 
+    /**
+     * Create a new {@link AlertDialogFragment}.
+     * 
+     * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
+     * @param title The title text, or {@code null} for no title.
+     * @param message The message text, or {@code null} for no message.
+     * @param iconId The resource id to be used for the icon drawable, or {@code 0} for no icon.
+     * @param positiveButton The positive button text, or {@code null} for no positive button.
+     * @param negativeButton The negative button text, or {@code null} for no negative button.
+     * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
+     * @return The newly built {@link AlertDialogFragment}.
+     */
     public static AlertDialogFragment newInstance(int tag, String title, String message, int iconId, String positiveButton, String negativeButton,
             Serializable payload) {
         final AlertDialogFragment res = new AlertDialogFragment();
@@ -140,6 +171,9 @@ public class AlertDialogFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Show this {@link AlertDialogFragment}.
+     */
     public void show(FragmentManager manager) {
         show(manager, FRAGMENT_TAG);
     }

@@ -48,9 +48,9 @@ public class BitmapUtil {
      * {@link android.graphics.BitmapFactory.Options#inSampleSize} if an {@link OutOfMemoryError} occurs.<br/>
      * If after trying 4 times the file still could not be decoded, {@code null} is returned.
      * 
-     * @param imageFile the file to be decoded.
-     * @param options the Options object passed to {@link BitmapFactory#decodeFile(String, android.graphics.BitmapFactory.Options)} (can be {@code null}).
-     * @return the decoded bitmap, or {@code null} if it could not be decoded.
+     * @param imageFile The file to be decoded.
+     * @param options The Options object passed to {@link BitmapFactory#decodeFile(String, android.graphics.BitmapFactory.Options)} (can be {@code null}).
+     * @return The decoded bitmap, or {@code null} if it could not be decoded.
      */
     public static Bitmap tryDecodeFile(File imageFile, BitmapFactory.Options options) {
         Log.d(TAG, "tryDecodeFile imageFile=" + imageFile);
@@ -148,9 +148,9 @@ public class BitmapUtil {
     /**
      * Copy the EXIF tags from the source image file to the destination image file.
      * 
-     * @param sourceFile the existing source JPEG file.
-     * @param destFile the existing destination JPEG file.
-     * @throws IOException if EXIF information could not be read or written.
+     * @param sourceFile The existing source JPEG file.
+     * @param destFile The existing destination JPEG file.
+     * @throws IOException If EXIF information could not be read or written.
      */
     public static void copyExifTags(File sourceFile, File destFile) throws IOException {
         Log.d(TAG, "copyExifTags sourceFile=" + sourceFile + " destFile=" + destFile);
@@ -170,8 +170,8 @@ public class BitmapUtil {
     /**
      * Retrieves the dimensions of the bitmap in the given file.
      * 
-     * @param bitmapFile the file containing the bitmap to measure.
-     * @return a {@code Point} containing the width in {@code x} and the height in {@code y}.
+     * @param bitmapFile The file containing the bitmap to measure.
+     * @return A {@code Point} containing the width in {@code x} and the height in {@code y}.
      */
     public static Point getDimensions(File bitmapFile) {
         Log.d(TAG, "getDimensions bitmapFile=" + bitmapFile);
@@ -188,8 +188,8 @@ public class BitmapUtil {
     /**
      * Retrieves the rotation in the EXIF tags of the given file.
      * 
-     * @param bitmapFile the file from which to retrieve the info.
-     * @return the rotation in degrees, or {@code 0} if there was no EXIF tags in the given file, or it could not be read.
+     * @param bitmapFile The file from which to retrieve the info.
+     * @return The rotation in degrees, or {@code 0} if there was no EXIF tags in the given file, or it could not be read.
      */
     public static int getExifRotation(File bitmapFile) {
         Log.d(TAG, "getExifRotation bitmapFile=" + bitmapFile);
@@ -223,10 +223,10 @@ public class BitmapUtil {
      * The resulting bitmap's dimensions will always be smaller than the given max dimensions.<br/>
      * The rotation EXIF tag of the given file, if present, is used to return a thumbnail that won't be rotated.
      * 
-     * @param bitmapFile the file containing the bitmap to create a thumbnail from.
-     * @param maxWidth the wanted maximum width of the resulting thumbnail.
-     * @param maxHeight the wanted maximum height of the resulting thumbnail.
-     * @return a small version of the bitmap, or (@code null} if the given bitmap could not be decoded.
+     * @param bitmapFile The file containing the bitmap to create a thumbnail from.
+     * @param maxWidth The wanted maximum width of the resulting thumbnail.
+     * @param maxHeight The wanted maximum height of the resulting thumbnail.
+     * @return A small version of the bitmap, or (@code null} if the given bitmap could not be decoded.
      */
     public static Bitmap createThumbnail(File bitmapFile, int maxWidth, int maxHeight) {
         Log.d(TAG, "createThumbnail imageFile=" + bitmapFile + " maxWidth=" + maxWidth + " maxHeight=" + maxHeight);

@@ -30,7 +30,7 @@ public class IoUtil {
     /**
      * Silently close the given {@link Closeable}s, ignoring any {@link IOException}.<br/> {@code null} objects are ignored.
      * 
-     * @param toClose the {@link Closeable}s to close.
+     * @param toClose The {@link Closeable}s to close.
      */
     public static void closeSilently(Closeable... toClose) {
         for (Closeable closeable : toClose) {

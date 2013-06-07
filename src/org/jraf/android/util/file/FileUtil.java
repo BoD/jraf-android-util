@@ -40,11 +40,11 @@ public class FileUtil {
      * Creates an empty temporary file using the given base name and suffix as part of the file name.<br/>
      * If {@code suffix} is {@code null}, {@code ".tmp"} is used.
      * 
-     * @param baseName the base name to use (must not be {@code null}).
-     * @param suffix the suffix to use (can be {@code null}).
-     * @return an empty temporary file.
-     * @throws RuntimeException if the file could not be created.
-     * @throws IllegalArgumentException if {@code baseName} is {@code null}.
+     * @param baseName The base name to use (must not be {@code null}).
+     * @param suffix The suffix to use (can be {@code null}).
+     * @return An empty temporary file.
+     * @throws RuntimeException If the file could not be created.
+     * @throws IllegalArgumentException If {@code baseName} is {@code null}.
      */
     public static File newTemporaryFile(Context context, String baseName, String suffix) {
         if (baseName == null) throw new IllegalArgumentException("baseName must not be null");
@@ -70,9 +70,9 @@ public class FileUtil {
      * Creates an empty temporary file using a unique id as the base name and the given suffix as part of the file name.<br/>
      * If {@code suffix} is {@code null}, {@code ".tmp"} is used.
      * 
-     * @param suffix the suffix to use (can be {@code null}).
-     * @return an empty temporary file.
-     * @throws RuntimeException if the file could not be created.
+     * @param suffix The suffix to use (can be {@code null}).
+     * @return An empty temporary file.
+     * @throws RuntimeException If the file could not be created.
      */
     public static File newTemporaryFile(Context context, String suffix) {
         return newTemporaryFile(context, UUID.randomUUID().toString(), suffix);
