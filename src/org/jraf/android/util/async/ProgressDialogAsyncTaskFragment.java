@@ -57,7 +57,9 @@ public abstract class ProgressDialogAsyncTaskFragment extends SimpleAsyncTaskFra
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!mTaskFinished) {
+                // This will happen after a small delay, so we must check that the task hasn't already finished,
+                // and that the fragment is still added.
+                if (!mTaskFinished && isAdded()) {
                     ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
                     progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.FRAGMENT_TAG);
                 }
