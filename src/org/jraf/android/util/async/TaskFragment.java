@@ -23,11 +23,10 @@
  */
 package org.jraf.android.util.async;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -47,8 +46,6 @@ import org.jraf.android.util.dialog.ProgressDialogFragment;
 public class TaskFragment extends Fragment {
     private static final String TAG = Constants.TAG + TaskFragment.class.getSimpleName();
     private static final String FRAGMENT_TAG_PREFIX = TaskFragment.class.getName() + ".FRAGMENT_TAG.";
-
-    public static final Executor THREAD_POOL_EXECUTOR = Executors.newFixedThreadPool(10);
 
     private static final int DELAY_SHOW_PROGRESS_DIALOG = 250; // ms
 
@@ -83,7 +80,7 @@ public class TaskFragment extends Fragment {
     }
 
     private void startTask() {
-        new AsyncTask<Void, Void, Boolean>() {
+        AsyncTask<Void, Void, Boolean> asyncTask = new AsyncTask<Void, Void, Boolean>() {
             @Override
             public void onPreExecute() {
                 mTask.onPreExecute();
@@ -129,7 +126,17 @@ public class TaskFragment extends Fragment {
                 }
                 if (fragmentManager != null) fragmentManager.beginTransaction().remove(TaskFragment.this).commitAllowingStateLoss();
             }
-        }.executeOnExecutor(THREAD_POOL_EXECUTOR);
+        };
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            executeHoneycomb(asyncTask);
+        } else {
+            asyncTask.execute();
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void executeHoneycomb(AsyncTask<Void, Void, Boolean> asyncTask) {
+        asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public void execute(FragmentManager fragmentManager) {
