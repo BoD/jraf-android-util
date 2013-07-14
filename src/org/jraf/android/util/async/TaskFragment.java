@@ -89,7 +89,7 @@ public class TaskFragment extends Fragment {
                     public void run() {
                         // This will happen after a small delay, so we must check that the task hasn't already finished,
                         // and that the fragment is still added.
-                        if (!mTaskFinished && isAdded()) {
+                        if (!mTaskFinished && isResumed()) {
                             ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
                             progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.FRAGMENT_TAG);
                         }
