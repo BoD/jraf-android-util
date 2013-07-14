@@ -33,10 +33,10 @@ import java.io.IOException;
 import java.util.UUID;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import org.jraf.android.util.Constants;
+import org.jraf.android.util.environment.EnvironmentUtil;
 import org.jraf.android.util.io.IoUtil;
 
 public class FileUtil {
@@ -54,10 +54,7 @@ public class FileUtil {
      */
     public static File newTemporaryFile(Context context, String baseName, String suffix) {
         if (baseName == null) throw new IllegalArgumentException("baseName must not be null");
-        // API Level 7 Equivalent of context.getExternalCacheDir()
-        File externalStorageDirectory = Environment.getExternalStorageDirectory();
-        File cacheDir = new File(externalStorageDirectory, "Android/data/" + context.getPackageName() + "/cache");
-        cacheDir.mkdirs();
+        File cacheDir = EnvironmentUtil.getExternalCacheDir(context);
         File res = new File(cacheDir, baseName + (suffix == null ? ".tmp" : suffix));
         if (res.exists()) res.delete();
         try {
