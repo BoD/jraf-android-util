@@ -8,6 +8,7 @@
  * repository.
  *
  * Copyright (C) 2013 Benoit 'BoD' Lubek (BoD@JRAF.org)
+ * Copyright (C) 2009 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,15 +25,28 @@
 package org.jraf.android.util.datetime;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.text.format.DateUtils;
+
+import org.jraf.android.util.R;
 
 public class DateTimeUtil {
     private static Map<String, DateFormat> sTimeZoneTimeFormats = new HashMap<String, DateFormat>();
+    private static SimpleDateFormat DATE_FORMAT_ISO8601 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+    private static SimpleDateFormat DATE_FORMAT_ISO8601_UTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+
+    static {
+        DATE_FORMAT_ISO8601_UTC.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
 
     /**
      * Formats the given time according to the user's preference, and using the given time zone.
@@ -59,5 +73,48 @@ public class DateTimeUtil {
      */
     public static String getCurrentTimeForTimezone(Context context, String timezone) {
         return formatTime(context, new Date(), TimeZone.getTimeZone(timezone));
+    }
+
+    /**
+     * Formats a date / time according to the ISO 8601 format, optionally forcing to UTC.
+     * 
+     * @param date The date / time to format.
+     * @param utc If {@code true}, the resulting string will be in UTC timezone (that is, ending with "Z").
+     * @return The formatted date / time.
+     */
+    public static synchronized String toIso8601(long date, boolean utc) {
+        if (utc) {
+            return DATE_FORMAT_ISO8601_UTC.format(date);
+        }
+        return DATE_FORMAT_ISO8601.format(date);
+    }
+
+    /**
+     * Parses a date / time formatted according to the ISO 8601 format.
+     * 
+     * @param date The date / time to parse.
+     * @return The parsed date / time.
+     */
+    public static synchronized Date fromIso8601(String date) throws ParseException {
+        return DATE_FORMAT_ISO8601.parse(date);
+    }
+
+    /**
+     * Return given duration in a human-friendly format. For example, "4
+     * minutes" or "1 second". Returns only largest meaningful unit of time,
+     * from seconds up to hours.
+     */
+    public static CharSequence formatDuration(Context context, long millis) {
+        final Resources res = context.getResources();
+        if (millis >= DateUtils.HOUR_IN_MILLIS) {
+            final int hours = (int) ((millis + 1800000) / DateUtils.HOUR_IN_MILLIS);
+            return res.getQuantityString(R.plurals.duration_hours, hours, hours);
+        } else if (millis >= DateUtils.MINUTE_IN_MILLIS) {
+            final int minutes = (int) ((millis + 30000) / DateUtils.MINUTE_IN_MILLIS);
+            return res.getQuantityString(R.plurals.duration_minutes, minutes, minutes);
+        } else {
+            final int seconds = (int) ((millis + 500) / DateUtils.SECOND_IN_MILLIS);
+            return res.getQuantityString(R.plurals.duration_seconds, seconds, seconds);
+        }
     }
 }
