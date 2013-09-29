@@ -40,7 +40,7 @@ import org.jraf.android.util.dialog.ProgressDialogFragment;
 
 /**
  * A non UI {@link Fragment} that executes a task in the background.<br/>
- * A {@link ProgressDialogFragment} while the task is running for at least a few milliseconds.
+ * A {@link ProgressDialogFragment} is shown while the task is running for at least a few milliseconds.
  */
 @SuppressLint("ValidFragment")
 public class TaskFragment extends Fragment {
@@ -89,6 +89,7 @@ public class TaskFragment extends Fragment {
                     public void run() {
                         // This will happen after a small delay, so we must check that the task hasn't already finished,
                         // and that the fragment is still added.
+                        Log.d(TAG, "onPreExecute mTaskFinished=" + mTaskFinished);
                         if (!mTaskFinished && isResumed()) {
                             ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
                             progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.FRAGMENT_TAG);
@@ -111,9 +112,11 @@ public class TaskFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Boolean ok) {
+                Log.d(TAG, "onPostExecute ok=" + ok);
                 mTaskFinished = true;
                 FragmentManager fragmentManager = getFragmentManager();
                 if (fragmentManager != null) {
+                    fragmentManager.executePendingTransactions();
                     DialogFragment dialogFragment = (DialogFragment) getFragmentManager().findFragmentByTag(ProgressDialogFragment.FRAGMENT_TAG);
                     if (dialogFragment != null) dialogFragment.dismissAllowingStateLoss();
                 }
