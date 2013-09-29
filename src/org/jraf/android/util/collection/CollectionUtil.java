@@ -47,6 +47,20 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts an array of {@code long} into a {@link List} of {@link Long}.
+     * 
+     * @param longArray The array to convert.
+     * @return The newly created {@link List}.
+     */
+    public static List<Long> asList(long[] longArray) {
+        List<Long> res = new ArrayList<Long>(longArray.length);
+        for (long i : longArray) {
+            res.add(i);
+        }
+        return res;
+    }
+
+    /**
      * Returns a new {@link Map} where the values are sorted according to the given comparator (or using the natural order if the comparator is {@code null}).
      * 
      * @param map The original map of which to get a sorted version.
