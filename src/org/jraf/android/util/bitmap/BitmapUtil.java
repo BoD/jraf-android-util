@@ -31,6 +31,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -123,6 +124,7 @@ public class BitmapUtil {
      * List of EXIF tags used by {@link #copyExifTags(File, File)}.
      */
     //@formatter:off
+    @SuppressLint("InlinedApi")
     private static final String[] EXIF_TAGS = new String[] { 
         ExifInterface.TAG_APERTURE,
         ExifInterface.TAG_DATETIME, 
