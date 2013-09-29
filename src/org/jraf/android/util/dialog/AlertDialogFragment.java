@@ -49,7 +49,7 @@ public class AlertDialogFragment extends DialogFragment {
     private int mTitleId;
     private String mMessage;
     private int mMessageId;
-    private int mIconId;
+    private int mItemsId;
     private String mPositiveButton;
     private int mPositiveButtonId;
     private String mNegativeButton;
@@ -62,20 +62,19 @@ public class AlertDialogFragment extends DialogFragment {
      * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
      * @param titleId The resource id to be used for the title text, or {@code 0} for no title.
      * @param messageId The resource id to be used for the message text, or {@code 0} for no message.
-     * @param iconId The resource id to be used for the icon drawable, or {@code 0} for no icon.
      * @param positiveButtonId The resource id to be used for the positive button text, or {@code 0} for no positive button.
      * @param negativeButtonId The resource id to be used for the negative button text, or {@code 0} for no negative button.
      * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
      * @return The newly built {@link AlertDialogFragment}.
      */
-    public static AlertDialogFragment newInstance(int tag, int titleId, int messageId, int iconId, int positiveButtonId, int negativeButtonId,
+    public static AlertDialogFragment newInstance(int tag, int titleId, int messageId, int itemsId, int positiveButtonId, int negativeButtonId,
             Serializable payload) {
         final AlertDialogFragment res = new AlertDialogFragment();
         final Bundle arguments = new Bundle();
         arguments.putInt("tag", tag);
         arguments.putInt("titleId", titleId);
         arguments.putInt("messageId", messageId);
-        arguments.putInt("iconId", iconId);
+        arguments.putInt("itemsId", itemsId);
         arguments.putInt("positiveButtonId", positiveButtonId);
         arguments.putInt("negativeButtonId", negativeButtonId);
         arguments.putSerializable("payload", payload);
@@ -89,20 +88,19 @@ public class AlertDialogFragment extends DialogFragment {
      * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
      * @param title The title text, or {@code null} for no title.
      * @param message The message text, or {@code null} for no message.
-     * @param iconId The resource id to be used for the icon drawable, or {@code 0} for no icon.
      * @param positiveButton The positive button text, or {@code null} for no positive button.
      * @param negativeButton The negative button text, or {@code null} for no negative button.
      * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
      * @return The newly built {@link AlertDialogFragment}.
      */
-    public static AlertDialogFragment newInstance(int tag, String title, String message, int iconId, String positiveButton, String negativeButton,
+    public static AlertDialogFragment newInstance(int tag, String title, String message, int itemsId, String positiveButton, String negativeButton,
             Serializable payload) {
         final AlertDialogFragment res = new AlertDialogFragment();
         final Bundle arguments = new Bundle();
         arguments.putInt("tag", tag);
         arguments.putString("title", title);
         arguments.putString("message", message);
-        arguments.putInt("iconId", iconId);
+        arguments.putInt("itemsId", itemsId);
         arguments.putString("positiveButton", positiveButton);
         arguments.putString("negativeButton", negativeButton);
         arguments.putSerializable("payload", payload);
@@ -118,12 +116,11 @@ public class AlertDialogFragment extends DialogFragment {
         mTitleId = getArguments().getInt("titleId");
         mMessage = getArguments().getString("message");
         mMessageId = getArguments().getInt("messageId");
-        mIconId = getArguments().getInt("iconId");
+        mItemsId = getArguments().getInt("itemsId");
         mPositiveButton = getArguments().getString("positiveButton");
         mPositiveButtonId = getArguments().getInt("positiveButtonId");
         mNegativeButton = getArguments().getString("negativeButton");
         mNegativeButtonId = getArguments().getInt("negativeButtonId");
-        mIconId = getArguments().getInt("iconId");
         mPayload = getArguments().getSerializable("payload");
     }
 
@@ -136,9 +133,17 @@ public class AlertDialogFragment extends DialogFragment {
             builder.setTitle(mTitleId);
         }
         if (mMessage != null) {
-            builder.setTitle(mMessage);
+            builder.setMessage(mMessage);
         } else if (mMessageId != 0) {
             builder.setMessage(mMessageId);
+        }
+        if (mItemsId != 0) {
+            builder.setItems(mItemsId, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((AlertDialogListener) getActivity()).onClickListItem(mTag, which, mPayload);
+                }
+            });
         }
         OnClickListener positiveOnClickListener = null;
         OnClickListener negativeOnClickListener = null;
@@ -167,7 +172,6 @@ public class AlertDialogFragment extends DialogFragment {
         } else if (mNegativeButtonId != 0) {
             builder.setNegativeButton(mNegativeButtonId, negativeOnClickListener);
         }
-        if (mIconId != 0) builder.setIcon(mIconId);
         return builder.create();
     }
 
