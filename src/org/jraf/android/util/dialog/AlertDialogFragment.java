@@ -31,6 +31,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 
@@ -108,6 +109,58 @@ public class AlertDialogFragment extends DialogFragment {
         return res;
     }
 
+    /**
+     * Create a new {@link AlertDialogFragment}.
+     * 
+     * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
+     * @param titleId The resource id to be used for the title text, or {@code 0} for no title.
+     * @param messageId The resource id to be used for the message text, or {@code 0} for no message.
+     * @param positiveButtonId The resource id to be used for the positive button text, or {@code 0} for no positive button.
+     * @param negativeButtonId The resource id to be used for the negative button text, or {@code 0} for no negative button.
+     * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
+     * @return The newly built {@link AlertDialogFragment}.
+     */
+    public static AlertDialogFragment newInstance(int tag, int titleId, int messageId, int itemsId, int positiveButtonId, int negativeButtonId,
+            Parcelable payload) {
+        final AlertDialogFragment res = new AlertDialogFragment();
+        final Bundle arguments = new Bundle();
+        arguments.putInt("tag", tag);
+        arguments.putInt("titleId", titleId);
+        arguments.putInt("messageId", messageId);
+        arguments.putInt("itemsId", itemsId);
+        arguments.putInt("positiveButtonId", positiveButtonId);
+        arguments.putInt("negativeButtonId", negativeButtonId);
+        arguments.putParcelable("payload", payload);
+        res.setArguments(arguments);
+        return res;
+    }
+
+    /**
+     * Create a new {@link AlertDialogFragment}.
+     * 
+     * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
+     * @param title The title text, or {@code null} for no title.
+     * @param message The message text, or {@code null} for no message.
+     * @param positiveButton The positive button text, or {@code null} for no positive button.
+     * @param negativeButton The negative button text, or {@code null} for no negative button.
+     * @param payload An optional payload that will be passed back to click events in the calling {@link Activity}.
+     * @return The newly built {@link AlertDialogFragment}.
+     */
+    public static AlertDialogFragment newInstance(int tag, String title, String message, int itemsId, String positiveButton, String negativeButton,
+            Parcelable payload) {
+        final AlertDialogFragment res = new AlertDialogFragment();
+        final Bundle arguments = new Bundle();
+        arguments.putInt("tag", tag);
+        arguments.putString("title", title);
+        arguments.putString("message", message);
+        arguments.putInt("itemsId", itemsId);
+        arguments.putString("positiveButton", positiveButton);
+        arguments.putString("negativeButton", negativeButton);
+        arguments.putParcelable("payload", payload);
+        res.setArguments(arguments);
+        return res;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,7 +174,7 @@ public class AlertDialogFragment extends DialogFragment {
         mPositiveButtonId = getArguments().getInt("positiveButtonId");
         mNegativeButton = getArguments().getString("negativeButton");
         mNegativeButtonId = getArguments().getInt("negativeButtonId");
-        mPayload = getArguments().getSerializable("payload");
+        mPayload = getArguments().get("payload");
     }
 
     @Override
