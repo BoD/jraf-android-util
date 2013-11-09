@@ -8,7 +8,6 @@
  * repository.
  *
  * Copyright (C) 2013 Benoit 'BoD' Lubek (BoD@JRAF.org)
- * Copyright (C) 2008 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +34,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,8 +46,9 @@ import org.jraf.android.util.io.IoUtil;
 
 /**
  * A logger that appends messages to a file on the disk.<br/> {@link #init(Context, int, boolean)} must be called prior to using the other methods of this class
- * (typically this should be done in the Application class.)<br/>
+ * (typically this should be done in {@link Application#onCreate()}).<br/>
  * Before using the log file (for instance to send it to server), {@link #prepareLogFile()} must be called.
+ * However, this is automatically called in case of an uncaught Exception.
  */
 public class Log {
     public static final String FILE = "log.txt";
