@@ -43,7 +43,8 @@ public class Log {
      * Typically this should be called in {@link Application#onCreate()}.<br/>
      */
     public static void init(String tagPrefix) {
-        sTagPrefix = tagPrefix + "/";
+        sTagPrefix = tagPrefix;
+        if (!sTagPrefix.endsWith("/")) sTagPrefix += "/";
     }
 
     public static void d() {
