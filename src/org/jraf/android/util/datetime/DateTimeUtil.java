@@ -101,14 +101,17 @@ public class DateTimeUtil {
 
     /**
      * Return given duration in a human-friendly format. For example, "4
-     * minutes" or "1 second". Returns only largest meaningful unit of time,
-     * from seconds up to hours.
+     * minutes" or "1 second".
      */
     public static CharSequence formatDuration(Context context, long millis) {
         final Resources res = context.getResources();
         if (millis >= DateUtils.HOUR_IN_MILLIS) {
-            final int hours = (int) ((millis + 1800000) / DateUtils.HOUR_IN_MILLIS);
-            return res.getQuantityString(R.plurals.duration_hours, hours, hours);
+            final int hours = (int) (millis / DateUtils.HOUR_IN_MILLIS);
+            final int minutes = (int) (millis % DateUtils.HOUR_IN_MILLIS / DateUtils.MINUTE_IN_MILLIS);
+            if (minutes == 0) {
+                return res.getQuantityString(R.plurals.duration_hours, hours, hours);
+            }
+            return res.getQuantityString(R.plurals.duration_hours, hours, hours) + " " + res.getQuantityString(R.plurals.duration_minutes, minutes, minutes);
         } else if (millis >= DateUtils.MINUTE_IN_MILLIS) {
             final int minutes = (int) ((millis + 30000) / DateUtils.MINUTE_IN_MILLIS);
             return res.getQuantityString(R.plurals.duration_minutes, minutes, minutes);
