@@ -61,6 +61,48 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts an array of {@code int} into an array of {@link Integer}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static Integer[] wrap(int[] value) {
+        Integer[] res = new Integer[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = Integer.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@code long} into an array of {@link Long}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static Long[] wrap(long[] value) {
+        Long[] res = new Long[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = Long.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@code double} into an array of {@link Double}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static Double[] wrap(double[] value) {
+        Double[] res = new Double[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = Double.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
      * Returns a new {@link Map} where the values are sorted according to the given comparator (or using the natural order if the comparator is {@code null}).
      * 
      * @param map The original map of which to get a sorted version.

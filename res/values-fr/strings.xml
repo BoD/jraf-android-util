@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="common_pleaseWait" tools:ignore="MissingTranslation">Veuillez patienter…</string>
+
+    <!-- Phrase describing a time duration using seconds [CHAR LIMIT=16] -->
+    <plurals name="duration_seconds">
+        <item quantity="zero">0 seconde</item>
+        <item quantity="one">1 seconde</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> secondes</item>
+    </plurals>
+    <!-- Phrase describing a time duration using minutes [CHAR LIMIT=16] -->
+    <plurals name="duration_minutes">
+        <item quantity="zero">0 minute</item>
+        <item quantity="one">1 minute</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
+    </plurals>
+    <!-- Phrase describing a time duration using hours [CHAR LIMIT=16] -->
+    <plurals name="duration_hours">
+        <item quantity="zero">0 heure</item>
+        <item quantity="one">1 heure</item>
+        <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
+    </plurals>
+
+</resources>
