@@ -28,8 +28,6 @@ import android.annotation.TargetApi;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +35,7 @@ import android.util.Log;
 
 import org.jraf.android.util.Constants;
 import org.jraf.android.util.dialog.ProgressDialogFragment;
+import org.jraf.android.util.handler.HandlerUtil;
 
 /**
  * A non UI {@link Fragment} that executes a task in the background.<br/>
@@ -84,7 +83,7 @@ public class TaskFragment extends Fragment {
             @Override
             public void onPreExecute() {
                 mTask.onPreExecute();
-                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                HandlerUtil.getMainHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         // This will happen after a small delay, so we must check that the task hasn't already finished,

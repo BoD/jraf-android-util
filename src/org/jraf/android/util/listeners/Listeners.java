@@ -27,15 +27,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import android.os.Handler;
-import android.os.Looper;
+import org.jraf.android.util.handler.HandlerUtil;
 
 /**
  * Utility class facilitating the implementation of the 'observer' design pattern.
  */
 public class Listeners<T> implements Iterable<T> {
     private Set<T> mListeners = new HashSet<T>(3);
-    private Handler mHandler;
 
     public static interface Dispatcher<T> {
         void dispatch(T listener);
@@ -76,16 +74,11 @@ public class Listeners<T> implements Iterable<T> {
 
     protected void onNoMoreListeners() {}
 
-    public void runOnUiThread(Runnable runnable) {
-        if (mHandler == null) mHandler = new Handler(Looper.getMainLooper());
-        mHandler.post(runnable);
-    }
-
     /**
      * Dispatching will be done in the main/ui thread.
      */
     public void dispatch(final Dispatcher<T> dispatcher) {
-        runOnUiThread(new Runnable() {
+        HandlerUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 for (T listener : mListeners) {
