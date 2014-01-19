@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 public class CheckableRelativeLayout extends RelativeLayout implements Checkable {
     private boolean mChecked;
     private OnCheckedChangeListener mOnCheckedChangeListener;
+    private volatile boolean mBroadcasting;
 
     private static final int[] CHECKED_STATE_SET = { android.R.attr.state_checked };
 
@@ -67,15 +68,29 @@ public class CheckableRelativeLayout extends RelativeLayout implements Checkable
 
     @Override
     public void setChecked(boolean checked) {
+        setChecked(checked, true);
+    }
+
+    public void setChecked(boolean checked, boolean notifyListener) {
         if (mChecked != checked) {
             mChecked = checked;
             refreshDrawableState();
 
-            if (mOnCheckedChangeListener != null) {
+            if (mBroadcasting) {
+                // Avoid infinite recursions if setChecked() is called from a listener
+                return;
+            }
+
+            if (notifyListener && mOnCheckedChangeListener != null) {
                 // XXX Normally we would pass this view as the first argument, unfortunately
                 // the OnCheckedChangeListener interface wants a CompoundButton here :(
                 // Pass null instead.
+
+                mBroadcasting = true;
+
                 mOnCheckedChangeListener.onCheckedChanged(null, mChecked);
+
+                mBroadcasting = false;
             }
         }
     }

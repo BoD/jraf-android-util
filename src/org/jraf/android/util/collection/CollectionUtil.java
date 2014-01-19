@@ -67,9 +67,25 @@ public class CollectionUtil {
      * @return The newly created array.
      */
     public static Integer[] wrap(int[] value) {
+        if (value == null) return null;
         Integer[] res = new Integer[value.length];
         for (int i = 0; i < value.length; i++) {
             res[i] = Integer.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@link Integer} into an array of {@code int}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static int[] unwrap(Integer[] value) {
+        if (value == null) return null;
+        int[] res = new int[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = value[i];
         }
         return res;
     }
@@ -81,9 +97,25 @@ public class CollectionUtil {
      * @return The newly created array.
      */
     public static Long[] wrap(long[] value) {
+        if (value == null) return null;
         Long[] res = new Long[value.length];
         for (int i = 0; i < value.length; i++) {
             res[i] = Long.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@link Long} into an array of {@code long}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static long[] unwrap(Long[] value) {
+        if (value == null) return null;
+        long[] res = new long[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = value[i];
         }
         return res;
     }
@@ -95,9 +127,25 @@ public class CollectionUtil {
      * @return The newly created array.
      */
     public static Double[] wrap(double[] value) {
+        if (value == null) return null;
         Double[] res = new Double[value.length];
         for (int i = 0; i < value.length; i++) {
             res[i] = Double.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@link Double} into an array of {@code double}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static double[] unwrap(Double[] value) {
+        if (value == null) return null;
+        double[] res = new double[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = value[i];
         }
         return res;
     }
