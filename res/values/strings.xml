@@ -19,4 +19,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
     </plurals>
 
+    <string name="validation_minLength">This field must be at least %d characters</string>
+    <string name="validation_notEmpty">This field must not be empty</string>
+    <string name="validation_email">This doesn\'t look like a valid email address</string>
+    <string name="validation_url">This doesn\'t look like a valid URL</string>
+
 </resources>

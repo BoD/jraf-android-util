@@ -22,4 +22,9 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
     </plurals>
 
+    <string name="validation_minLength">Ce champ doit comporter au moins %d caractères</string>
+    <string name="validation_notEmpty">Ce champ ne doit pas être vide</string>
+    <string name="validation_email">Ceci ne semble pas être une adresse email valide</string>
+    <string name="validation_url">Ceci ne semble pas être une URL valide</string>
+
 </resources>
