@@ -42,11 +42,14 @@ import android.os.HandlerThread;
 import android.os.Message;
 
 import org.jraf.android.util.annotation.Background;
+import org.jraf.android.util.environment.EnvironmentUtil;
 import org.jraf.android.util.io.IoUtil;
 
+
 /**
- * A logger that appends messages to a file on the disk.<br/> {@link #init(Context, int, boolean)} must be called prior to using the other methods of this class
- * (typically this should be done in {@link Application#onCreate()}).<br/>
+ * A logger that appends messages to a file on the disk.<br/> {@link #init(Context, int, boolean)} must be
+ * called prior to using the other methods of this class (typically this should be done
+ * in {@link Application#onCreate()}).<br/>
  * Before using the log file (for instance to send it to server), {@link #prepareLogFile()} must be called.
  * However, this is automatically called in case of an uncaught Exception.
  */
@@ -55,15 +58,16 @@ public class Log {
 
     private static final String FILE_0 = "log0.txt";
     private static final String FILE_1 = "log1.txt";
-    protected static final int MSG_V = 0;
-    protected static final int MSG_D = 1;
-    protected static final int MSG_I = 2;
-    protected static final int MSG_W = 3;
-    protected static final int MSG_E = 4;
-    protected static final String KEY_TAG = "KEY_TAG";
-    protected static final String KEY_MESSAGE = "KEY_MESSAGE";
-    protected static final String KEY_DATE = "KEY_DATE";
-    protected static final String KEY_THROWABLE = "KEY_THROWABLE";
+    private static final int MSG_V = 0;
+    private static final int MSG_D = 1;
+    private static final int MSG_I = 2;
+    private static final int MSG_W = 3;
+    private static final int MSG_E = 4;
+    private static final String KEY_TAG = "KEY_TAG";
+    private static final String KEY_MESSAGE = "KEY_MESSAGE";
+    private static final String KEY_DATE = "KEY_DATE";
+    private static final String KEY_THREADID = "KEY_THREADID";
+    private static final String KEY_THROWABLE = "KEY_THROWABLE";
 
     private static int sMaxLogSize;
     private static BufferedWriter sWriter;
@@ -74,22 +78,22 @@ public class Log {
     private static Handler sHandler;
     private static boolean sError = true;
     private static boolean sErrorLogged;
-    private static boolean sAndroidLogD;
+    private static boolean sAndroidLogDV;
 
     /**
      * If you are using ACRA, this method must be called <em>after</em> calling {@code ACRA.init()}.
      * 
      * @param maxLogSize Max log size in bytes.
-     * @param androidLogD If {@code true}, then {@link #d(String, String)} and {@link #v(String, String)} calls will also log
+     * @param androidLogDV If {@code true}, then {@link #d(String, String)} and {@link #v(String, String)} calls will also log
      *            to the standard Android Logcat facility.
      */
-    public static void init(Context context, int maxLogSize, boolean androidLogD) {
+    public static void init(Context context, int maxLogSize, boolean androidLogDV) {
         if (!sError) logError("Fatal error! Init must be called only once.");
 
         sMaxLogSize = maxLogSize;
-        sAndroidLogD = androidLogD;
+        sAndroidLogDV = androidLogDV;
 
-        sFile = new File(context.getFilesDir(), FILE);
+        sFile = new File(EnvironmentUtil.getExternalFilesDir(context, null), FILE);
         sFile0 = new File(context.getFilesDir(), FILE_0);
         sFile1 = new File(context.getFilesDir(), FILE_1);
 
@@ -121,11 +125,25 @@ public class Log {
                 try {
                     sWriter.write(String.valueOf(System.currentTimeMillis()));
                     switch (msg.what) {
+                        case MSG_V:
+                            sWriter.write(" V ");
+                            break;
                         case MSG_D:
                             sWriter.write(" D ");
                             break;
+                        case MSG_I:
+                            sWriter.write(" I ");
+                            break;
+                        case MSG_W:
+                            sWriter.write(" W ");
+                            break;
+                        case MSG_E:
+                            sWriter.write(" E ");
+                            break;
                     }
                     Bundle data = msg.getData();
+                    sWriter.write(data.getString(KEY_THREADID));
+                    sWriter.write(' ');
                     sWriter.write(data.getString(KEY_TAG));
                     sWriter.write(' ');
                     sWriter.write(data.getString(KEY_MESSAGE));
@@ -184,6 +202,7 @@ public class Log {
         data.putString(KEY_TAG, tag);
         data.putString(KEY_MESSAGE, message);
         data.putLong(KEY_DATE, System.currentTimeMillis());
+        data.putString(KEY_THREADID, String.valueOf(Thread.currentThread().getId()));
         if (throwable != null) data.putSerializable(KEY_THROWABLE, throwable);
         sHandler.sendMessage(msg);
     }
@@ -194,11 +213,11 @@ public class Log {
      */
 
     public static void v(String tag, String message) {
-        d(tag, message, null);
+        v(tag, message, null);
     }
 
     public static void v(String tag, String message, Throwable throwable) {
-        if (sAndroidLogD) {
+        if (sAndroidLogDV) {
             if (throwable != null) {
                 android.util.Log.v(tag, message, throwable);
             } else {
@@ -218,7 +237,7 @@ public class Log {
     }
 
     public static void d(String tag, String message, Throwable throwable) {
-        if (sAndroidLogD) {
+        if (sAndroidLogDV) {
             if (throwable != null) {
                 android.util.Log.d(tag, message, throwable);
             } else {
@@ -302,31 +321,41 @@ public class Log {
     /**
      * Prepares the log file by retrieving contents from the temporary files.<br/>
      * This must not be called from the UI thread since it accesses the disk.
+     * 
+     * @return true if we were able to prepare the log file, false if some error occurred.
      */
     @Background
-    public static void prepareLogFile() {
+    public static boolean prepareLogFile() {
         android.util.Log.d("Log", "Preparing log file...");
         BufferedInputStream in0 = null;
         BufferedInputStream in1 = null;
         BufferedOutputStream out = null;
         try {
-            in0 = new BufferedInputStream(new FileInputStream(sFile0));
-            in1 = new BufferedInputStream(new FileInputStream(sFile1));
+            if (sFile0.exists()) in0 = new BufferedInputStream(new FileInputStream(sFile0));
+            if (sFile1.exists()) in1 = new BufferedInputStream(new FileInputStream(sFile1));
             out = new BufferedOutputStream(new FileOutputStream(sFile, false));
 
-            if (sFile0.lastModified() < sFile1.lastModified()) {
+            if (sFile0.exists() && sFile1.exists()) {
+                if (sFile0.lastModified() < sFile1.lastModified()) {
+                    IoUtil.copy(in0, out);
+                    IoUtil.copy(in1, out);
+                } else {
+                    IoUtil.copy(in1, out);
+                    IoUtil.copy(in0, out);
+                }
+            } else if (sFile0.exists()) {
                 IoUtil.copy(in0, out);
+            } else if (sFile1.exists()) {
                 IoUtil.copy(in1, out);
-            } else {
-                IoUtil.copy(in1, out);
-                IoUtil.copy(in0, out);
             }
             out.flush();
         } catch (IOException e) {
             android.util.Log.e("Log", "Could not prepare log file.", e);
+            return false;
         } finally {
             IoUtil.closeSilently(in0, in1, out);
         }
         android.util.Log.d("Log", "Done.");
+        return true;
     }
 }
