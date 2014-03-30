@@ -151,6 +151,36 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts an array of {@code float} into an array of {@link Float}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static Float[] wrap(float[] value) {
+        if (value == null) return null;
+        Float[] res = new Float[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = Float.valueOf(value[i]);
+        }
+        return res;
+    }
+
+    /**
+     * Converts an array of {@link Float} into an array of {@code float}.
+     * 
+     * @param value The array to convert.
+     * @return The newly created array.
+     */
+    public static float[] unwrap(Float[] value) {
+        if (value == null) return null;
+        float[] res = new float[value.length];
+        for (int i = 0; i < value.length; i++) {
+            res[i] = value[i];
+        }
+        return res;
+    }
+
+    /**
      * Returns a new {@link Map} where the values are sorted according to the given comparator (or using the natural order if the comparator is {@code null}).
      * 
      * @param map The original map of which to get a sorted version.
