@@ -53,16 +53,18 @@ public class FitSizeChronometer extends Chronometer {
     }
 
     private void init() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) setHardwareLayerType();
+        // Set the layer type to software to avoid a "Font size too large to fit in cache." problem.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) setSoftwareLayerType();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setHardwareLayerType() {
+    private void setSoftwareLayerType() {
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
     private void resetTextSize(int width, int height) {
         if (width == 0 || height == 0) return;
+
         int w = width - getPaddingLeft() - getPaddingRight();
         int h = height - getPaddingTop() - getPaddingBottom();
 
@@ -77,6 +79,7 @@ public class FitSizeChronometer extends Chronometer {
             } else if (textHeight > h) {
                 textSize *= (float) h / textHeight;
             }
+            textSize--;
             setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             measureText(getText(), bounds);
             textWidth = bounds.width();
