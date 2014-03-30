@@ -57,4 +57,21 @@ public class EnvironmentUtil {
     private static File getExternalCacheDirFroyo(Context context) {
         return context.getExternalCacheDir();
     }
+
+    /**
+     * Returns the files directory, using {@link Context#getExternalFilesDir(String)} on level 8+ or an equivalent call for level < 8.
+     */
+    public static File getExternalFilesDir(Context context, String type) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            return getExternalFilesDirFroyo(context, type);
+        }
+        // API Level <8 Equivalent of context.getExternalFilesDir()
+        File externalStorageDirectory = Environment.getExternalStorageDirectory();
+        return new File(externalStorageDirectory, "Android/data/" + context.getPackageName() + "/files");
+    }
+
+    @TargetApi(Build.VERSION_CODES.FROYO)
+    private static File getExternalFilesDirFroyo(Context context, String type) {
+        return context.getExternalFilesDir(type);
+    }
 }
