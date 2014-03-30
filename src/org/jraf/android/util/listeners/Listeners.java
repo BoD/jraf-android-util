@@ -87,4 +87,11 @@ public class Listeners<T> implements Iterable<T> {
             }
         });
     }
+
+    /**
+     * Returns the current number of listeners.
+     */
+    public int size() {
+        return mListeners.size();
+    }
 }
