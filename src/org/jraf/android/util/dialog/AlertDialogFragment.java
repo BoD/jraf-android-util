@@ -37,7 +37,8 @@ import android.support.v4.app.FragmentManager;
 
 /**
  * A simple implementation of an {@link AlertDialog}.<br/>
- * If the calling {@link Activity} implements {@link AlertDialogListener}, it will be notified of button clicks.
+ * If the calling {@link Activity} implements {@link AlertDialogListener}, it will be notified of button clicks.<br/>
+ * Canceling is considered equivalent to clicking the negative button.
  * 
  * @see AlertDialogListener
  */
@@ -225,7 +226,17 @@ public class AlertDialogFragment extends DialogFragment {
         } else if (mNegativeButtonId != 0) {
             builder.setNegativeButton(mNegativeButtonId, negativeOnClickListener);
         }
+
         return builder.create();
+    }
+
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        if (getActivity() instanceof AlertDialogListener) {
+            ((AlertDialogListener) getActivity()).onClickNegative(mTag, mPayload);
+        }
     }
 
     /**
@@ -233,5 +244,10 @@ public class AlertDialogFragment extends DialogFragment {
      */
     public void show(FragmentManager manager) {
         show(manager, FRAGMENT_TAG);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle arg0) {
+        super.onActivityCreated(arg0);
     }
 }
