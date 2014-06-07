@@ -245,9 +245,4 @@ public class AlertDialogFragment extends DialogFragment {
     public void show(FragmentManager manager) {
         show(manager, FRAGMENT_TAG);
     }
-
-    @Override
-    public void onActivityCreated(Bundle arg0) {
-        super.onActivityCreated(arg0);
-    }
 }
