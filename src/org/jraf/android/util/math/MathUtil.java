@@ -62,7 +62,7 @@ public class MathUtil {
     /**
      * Get the average of the given array.
      * 
-     * @param values The array in which to calculate the average.
+     * @param values The array for which to calculate the average.
      * @return the average.
      */
     public static float getAverage(float... values) {
@@ -71,5 +71,24 @@ public class MathUtil {
             sum += val;
         }
         return sum / values.length;
+    }
+
+    /**
+     * Get the moving average of the given array.
+     * 
+     * @param values The array for which to calculate the moving average.
+     * @param period The period to use (number of values to average).
+     * @return the average.
+     */
+    public static float[] getMovingAverage(float[] values, int period) {
+        float[] res = new float[values.length];
+        MovingAverage movingAverage = new MovingAverage(period);
+        int i = 0;
+        for (float v : values) {
+            movingAverage.add(v);
+            res[i] = movingAverage.getAverage();
+            i++;
+        }
+        return res;
     }
 }
