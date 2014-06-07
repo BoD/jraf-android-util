@@ -112,6 +112,8 @@ public class GraphView extends View {
     private void init() {
         mPaint = new Paint();
         mPaint.setStyle(Style.FILL);
+        mPaint.setAntiAlias(true);
+        mPaint.setStrokeWidth(1 * getResources().getDisplayMetrics().density);
     }
 
     @Override
@@ -168,6 +170,7 @@ public class GraphView extends View {
         super.onDraw(canvas);
 
         int total = mValues.size();
+        float lineWidth = getResources().getDisplayMetrics().density;
         for (int i = 0; i < total; i++) {
             Bundle bundle = mValues.valueAt(i);
             float[] values = bundle.getFloatArray(KEY_VALUES);
@@ -191,8 +194,8 @@ public class GraphView extends View {
                     break;
 
                 case LINES:
-                    width = canvas.getWidth();
-                    height = canvas.getHeight();
+                    width = (int) (canvas.getWidth() - lineWidth * 2);
+                    height = (int) (canvas.getHeight() - lineWidth * 2);
                     break;
             }
 
@@ -217,7 +220,7 @@ public class GraphView extends View {
 
                     case LINES:
                         if (j > 0) {
-                            canvas.drawLine(prevX, prevY, x, y, mPaint);
+                            canvas.drawLine(prevX + lineWidth, prevY + lineWidth, x + lineWidth, y + lineWidth, mPaint);
                         }
                         break;
                 }
