@@ -67,19 +67,16 @@ public class Validators extends ArrayList<Validator> {
     }
 
     public void validate() {
+        mValid = true;
         for (Validator v : this) {
             boolean valid = v.isValid();
             if (!valid) {
                 mValid = false;
-                for (OnValidationListener listener : mOnValidationListenerList) {
-                    listener.onValidation(false);
-                }
                 break;
             }
-            mValid = true;
-            for (OnValidationListener listener : mOnValidationListenerList) {
-                listener.onValidation(true);
-            }
+        }
+        for (OnValidationListener listener : mOnValidationListenerList) {
+            listener.onValidation(mValid);
         }
     }
 
