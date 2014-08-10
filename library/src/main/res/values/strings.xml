@@ -19,6 +19,10 @@
         <item quantity="other"><xliff:g id="count">%d</xliff:g> hours</item>
     </plurals>
 
+    <string name="duration_short_hours" translatable="false">%dh</string>
+    <string name="duration_short_minutes" translatable="false">%dm</string>
+    <string name="duration_short_lessThanOneMinute" translatable="false">&lt;1m</string>
+
     <string name="validation_minLength">This field must be at least %d characters</string>
     <string name="validation_notEmpty">This field must not be empty</string>
     <string name="validation_email">This doesn\'t look like a valid email address</string>
