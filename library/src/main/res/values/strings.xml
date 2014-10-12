@@ -28,4 +28,20 @@
     <string name="validation_email">This doesn\'t look like a valid email address</string>
     <string name="validation_url">This doesn\'t look like a valid URL</string>
 
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_action_sendLogs">Send logs</string>
+    <string name="about_sendingLogsToast">Logs are being sent.</string>
+
+    <string name="about_txtTitle" translatable="false"><![CDATA[<b>%1$s</b> v%2$s/%3$s<br/>Built on %4$s<font color="#808080"> – %5$s</font>]]></string>
+    <string name="about_arrow" translatable="false">→</string>
+
+    <string name="about_btnShare">Share app</string>
+    <string name="about_btnRate">Rate app</string>
+    <string name="about_btnOtherApps">Other apps</string>
+    <string name="about_btnDonate">Donate</string>
+
+    <string name="about_shareWith">Share with&#8230;</string>
+    <string name="about_donatePaypalLink" translatable="false"><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BoD%%40JRAF%%2eorg&lc=US&item_name=Donate%%20to%%20BoD&item_number=Donate%%20to%%20BoD&no_note=0&currency_code=USD&bn=PP%%2dDonationsBF%%3abtn_donateCC_LG%%2egif%%3aNonHostedGuest%s]]></string>
+
 </resources>

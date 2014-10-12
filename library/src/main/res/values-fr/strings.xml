@@ -5,20 +5,17 @@
 
     <!-- Phrase describing a time duration using seconds [CHAR LIMIT=16] -->
     <plurals name="duration_seconds">
-        <item quantity="zero">0 seconde</item>
-        <item quantity="one">1 seconde</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> seconde</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> secondes</item>
     </plurals>
     <!-- Phrase describing a time duration using minutes [CHAR LIMIT=16] -->
     <plurals name="duration_minutes">
-        <item quantity="zero">0 minute</item>
-        <item quantity="one">1 minute</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> minute</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> minutes</item>
     </plurals>
     <!-- Phrase describing a time duration using hours [CHAR LIMIT=16] -->
     <plurals name="duration_hours">
-        <item quantity="zero">0 heure</item>
-        <item quantity="one">1 heure</item>
+        <item quantity="one"><xliff:g id="count">%d</xliff:g> heure</item>
         <item quantity="other"><xliff:g id="count">%d</xliff:g> heures</item>
     </plurals>
 
@@ -26,5 +23,17 @@
     <string name="validation_notEmpty">Ce champ ne doit pas être vide</string>
     <string name="validation_email">Ceci ne semble pas être une adresse email valide</string>
     <string name="validation_url">Ceci ne semble pas être une URL valide</string>
+
+    <!-- About -->
+    <string name="about_title">À propos</string>
+    <string name="about_action_sendLogs">Envoyer les logs</string>
+    <string name="about_sendingLogsToast">Logs en cours d\'envoi.</string>
+
+    <string name="about_btnShare">Partager</string>
+    <string name="about_btnRate">Votre avis</string>
+    <string name="about_btnOtherApps">Autres applis</string>
+    <string name="about_btnDonate">Faire un don</string>
+
+    <string name="about_shareWith">Partager avec&#8230;</string>
 
 </resources>
