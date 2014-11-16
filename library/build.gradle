@@ -5,7 +5,7 @@ version = '1.0.0'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "org.jraf.android.util"

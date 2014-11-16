@@ -44,65 +44,50 @@
             android:id="@+id/conLinks"
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:layout_weight="1"
             android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:gravity="top"
             android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnShare"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:drawableLeft="@drawable/util_ic_share"
                 android:drawableStart="@drawable/util_ic_share"
+                android:minWidth="180dp"
                 android:text="@string/about_btnShare"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btnRate"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/util_ic_rate"
                 android:drawableStart="@drawable/util_ic_rate"
+                android:minWidth="180dp"
                 android:text="@string/about_btnRate"
                 tools:ignore="ButtonStyle" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp">
 
             <Button
                 android:id="@+id/btnOtherApps"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="right"
                 android:drawableLeft="@drawable/util_ic_other_apps"
                 android:drawableStart="@drawable/util_ic_other_apps"
+                android:minWidth="180dp"
                 android:text="@string/about_btnOtherApps"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/btnDonate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/util_ic_donate"
-                android:drawableStart="@drawable/util_ic_donate"
-
-                android:text="@string/about_btnDonate"
                 tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>

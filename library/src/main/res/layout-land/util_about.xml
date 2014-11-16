@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vieRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -39,58 +38,51 @@
             android:id="@+id/txtLicense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="8dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#888" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="12dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:layout_weight="1"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btnShare"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/util_ic_share"
             android:drawableStart="@drawable/util_ic_share"
-
+            android:minWidth="180dp"
             android:text="@string/about_btnShare" />
 
         <Button
             android:id="@+id/btnRate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/util_ic_rate"
             android:drawableStart="@drawable/util_ic_rate"
+            android:minWidth="180dp"
             android:text="@string/about_btnRate" />
 
         <Button
             android:id="@+id/btnOtherApps"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/util_ic_other_apps"
             android:drawableStart="@drawable/util_ic_other_apps"
+            android:minWidth="180dp"
             android:text="@string/about_btnOtherApps" />
 
-        <Button
-            android:id="@+id/btnDonate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/util_ic_donate"
-            android:drawableStart="@drawable/util_ic_donate"
-            android:text="@string/about_btnDonate" />
     </LinearLayout>
 
 </LinearLayout>

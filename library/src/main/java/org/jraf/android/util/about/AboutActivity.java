@@ -83,7 +83,7 @@ public class AboutActivity extends Activity {
         findViewById(R.id.btnShare).setOnClickListener(mShareOnClickListener);
         findViewById(R.id.btnRate).setOnClickListener(mRateOnClickListener);
         findViewById(R.id.btnOtherApps).setOnClickListener(mOtherAppsOnClickListener);
-        findViewById(R.id.btnDonate).setOnClickListener(mDonateOnClickListener);
+//        findViewById(R.id.btnDonate).setOnClickListener(mDonateOnClickListener);
 
         // Links
         ViewGroup conLinks = (ViewGroup) findViewById(R.id.conLinks);
