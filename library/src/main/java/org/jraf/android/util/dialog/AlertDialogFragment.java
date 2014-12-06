@@ -23,8 +23,6 @@
  */
 package org.jraf.android.util.dialog;
 
-import java.io.Serializable;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,6 +32,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * A simple implementation of an {@link AlertDialog}.<br/>
@@ -52,6 +53,7 @@ public class AlertDialogFragment extends DialogFragment {
     private int mTitleId;
     private String mMessage;
     private int mMessageId;
+    private ArrayList<CharSequence> mItems;
     private int mItemsId;
     private String mPositiveButton;
     private int mPositiveButtonId;
@@ -120,6 +122,13 @@ public class AlertDialogFragment extends DialogFragment {
         getArgs().putInt("itemsId", resId);
     }
 
+    /**
+     * @param items The list items, or {@code null} for no list.
+     */
+    public void setItems(ArrayList<CharSequence> items) {
+        getArgs().putCharSequenceArrayList("items", items);
+    }
+
 
     /**
      * @param resId The resource id to be used for the negative button text, or {@code 0} for no negative button.
@@ -183,6 +192,7 @@ public class AlertDialogFragment extends DialogFragment {
         mTitleId = getArguments().getInt("titleId");
         mMessage = getArguments().getString("message");
         mMessageId = getArguments().getInt("messageId");
+        mItems = getArguments().getCharSequenceArrayList("items");
         mItemsId = getArguments().getInt("itemsId");
         mPositiveButton = getArguments().getString("positiveButton");
         mPositiveButtonId = getArguments().getInt("positiveButtonId");
@@ -200,12 +210,21 @@ public class AlertDialogFragment extends DialogFragment {
         } else if (mTitleId != 0) {
             builder.setTitle(mTitleId);
         }
+
         if (mMessage != null) {
             builder.setMessage(mMessage);
         } else if (mMessageId != 0) {
             builder.setMessage(mMessageId);
         }
-        if (mItemsId != 0) {
+
+        if (mItems != null) {
+            builder.setItems(mItems.toArray(new CharSequence[mItems.size()]), new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((AlertDialogListener) getActivity()).onClickListItem(mTag, which, mPayload);
+                }
+            });
+        } else if (mItemsId != 0) {
             builder.setItems(mItemsId, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -213,6 +232,7 @@ public class AlertDialogFragment extends DialogFragment {
                 }
             });
         }
+
         OnClickListener positiveOnClickListener = null;
         OnClickListener negativeOnClickListener = null;
         if (getActivity() instanceof AlertDialogListener) {

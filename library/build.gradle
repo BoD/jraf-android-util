@@ -4,19 +4,19 @@ group = 'org.jraf'
 version = '1.0.0'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
     defaultConfig {
         applicationId "org.jraf.android.util"
-        minSdkVersion 7
-        targetSdkVersion 19
+        minSdkVersion 8
+        targetSdkVersion 21
     }
 
     buildTypes {
         release {
             // Do not run proguard for this library: it would strip all code since it is not called anywhere
-            runProguard false
+            minifyEnabled false
         }
     }
 
@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:20.+'
+    compile 'com.android.support:support-v4:21.0.2'
     compile files('libs/http-request-5.3-SNAPSHOT.jar')
 }
 
