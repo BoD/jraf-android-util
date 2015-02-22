@@ -37,6 +37,7 @@ public class Log {
     }
 
     private static String sTagPrefix = "";
+    private static boolean sEnabled = true;
 
     /**
      * This can be called prior to using the other methods of this class, to specify a prefix to prepend to the tag.
@@ -47,27 +48,39 @@ public class Log {
         if (!sTagPrefix.endsWith("/")) sTagPrefix += "/";
     }
 
+    /**
+     * Enable or disable logging.
+     */
+    public static void setEnabled(boolean enabled) {
+        sEnabled = enabled;
+    }
+
     public static void d() {
+        if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.d(callerInfo.tag, callerInfo.method);
     }
 
     public static void d(String msg) {
+        if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.d(callerInfo.tag, callerInfo.method + " " + msg);
     }
 
     public static void w(String msg) {
+        if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.w(callerInfo.tag, callerInfo.method + " " + msg);
     }
 
     public static void w(String msg, Throwable t) {
+        if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.w(callerInfo.tag, callerInfo.method + " " + msg, t);
     }
 
     public static void e(String msg, Throwable t) {
+        if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.e(callerInfo.tag, callerInfo.method + " " + msg, t);
     }

@@ -60,8 +60,8 @@
             android:id="@+id/btnShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/util_ic_share"
-            android:drawableStart="@drawable/util_ic_share"
+            android:drawableLeft="@drawable/util_ic_share_dark"
+            android:drawableStart="@drawable/util_ic_share_dark"
             android:minWidth="180dp"
             android:text="@string/about_btnShare" />
 
@@ -69,8 +69,8 @@
             android:id="@+id/btnRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/util_ic_rate"
-            android:drawableStart="@drawable/util_ic_rate"
+            android:drawableLeft="@drawable/util_ic_rate_dark"
+            android:drawableStart="@drawable/util_ic_rate_dark"
             android:minWidth="180dp"
             android:text="@string/about_btnRate" />
 
@@ -78,8 +78,8 @@
             android:id="@+id/btnOtherApps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/util_ic_other_apps"
-            android:drawableStart="@drawable/util_ic_other_apps"
+            android:drawableLeft="@drawable/util_ic_other_apps_dark"
+            android:drawableStart="@drawable/util_ic_other_apps_dark"
             android:minWidth="180dp"
             android:text="@string/about_btnOtherApps" />
 

@@ -24,14 +24,12 @@
  */
 package org.jraf.android.util.about;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
@@ -39,12 +37,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jraf.android.util.R;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends ActionBarActivity {
     public static final String EXTRA_PARAMS = "org.jraf.android.util.about.AboutActivity.EXTRA_PARAMS";
     public static final String ACTION_SEND_LOGS = "org.jraf.android.util.about.ACTION_SEND_LOGS";
 
@@ -54,9 +53,7 @@ public class AboutActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.util_about);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            showHomeAsUp();
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mParams = (AboutActivityParams) getIntent().getParcelableExtra(EXTRA_PARAMS);
 
@@ -80,10 +77,20 @@ public class AboutActivity extends Activity {
         ((TextView) findViewById(R.id.txtLicense)).setText(mParams.license);
 
         // Action buttons
-        findViewById(R.id.btnShare).setOnClickListener(mShareOnClickListener);
-        findViewById(R.id.btnRate).setOnClickListener(mRateOnClickListener);
-        findViewById(R.id.btnOtherApps).setOnClickListener(mOtherAppsOnClickListener);
-//        findViewById(R.id.btnDonate).setOnClickListener(mDonateOnClickListener);
+        Button btnShare = (Button) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(mShareOnClickListener);
+
+        Button btnRate = (Button) findViewById(R.id.btnRate);
+        btnRate.setOnClickListener(mRateOnClickListener);
+
+        Button btnOtherApps = (Button) findViewById(R.id.btnOtherApps);
+        btnOtherApps.setOnClickListener(mOtherAppsOnClickListener);
+
+        if (mParams.isLightIcons) {
+            btnShare.setCompoundDrawablesWithIntrinsicBounds(R.drawable.util_ic_share_light, 0, 0, 0);
+            btnRate.setCompoundDrawablesWithIntrinsicBounds(R.drawable.util_ic_rate_light, 0, 0, 0);
+            btnOtherApps.setCompoundDrawablesWithIntrinsicBounds(R.drawable.util_ic_other_apps_light, 0, 0, 0);
+        }
 
         // Links
         ViewGroup conLinks = (ViewGroup) findViewById(R.id.conLinks);
@@ -98,11 +105,6 @@ public class AboutActivity extends Activity {
         res.setMovementMethod(LinkMovementMethod.getInstance());
         res.setText(Html.fromHtml(String.format("→ <a href=\"%s\">%s</a>", link.uri, link.text)));
         return res;
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void showHomeAsUp() {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

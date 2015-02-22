@@ -24,11 +24,11 @@
  */
 package org.jraf.android.util.about;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AboutActivityIntentBuilder {
     private String mAppName;
@@ -40,6 +40,7 @@ public class AboutActivityIntentBuilder {
     private String mShareTextSubject;
     private String mShareTextBody;
     private int mBackgroundResId;
+    private boolean mIsLightIcons;
 
     public AboutActivityIntentBuilder setAppName(String appName) {
         mAppName = appName;
@@ -86,9 +87,14 @@ public class AboutActivityIntentBuilder {
         return this;
     }
 
+    public AboutActivityIntentBuilder setIsLightIcons(boolean isLightIcons) {
+        mIsLightIcons = isLightIcons;
+        return this;
+    }
+
     public Intent build(Context context) {
         AboutActivityParams params = new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mLinkList, mShareTextSubject,
-                mShareTextBody, mBackgroundResId);
+                mShareTextBody, mBackgroundResId, mIsLightIcons);
         Intent intent = new Intent(context, AboutActivity.class);
         intent.putExtra(AboutActivity.EXTRA_PARAMS, params);
         return intent;

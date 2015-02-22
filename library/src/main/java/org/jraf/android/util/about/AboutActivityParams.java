@@ -24,11 +24,11 @@
  */
 package org.jraf.android.util.about;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AboutActivityParams implements Parcelable {
     public static class Link implements Parcelable {
@@ -79,9 +79,10 @@ public class AboutActivityParams implements Parcelable {
     public String shareTextSubject;
     public String shareTextBody;
     public int backgroundResId;
+    public boolean isLightIcons;
 
     public AboutActivityParams(String appName, String buildDate, String gitSha1, String authorCopyright, String license, List<Link> linkList,
-                               String shareTextSubject, String shareTextBody, int backgroundResId) {
+                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons) {
         this.appName = appName;
         this.buildDate = buildDate;
         this.gitSha1 = gitSha1;
@@ -91,6 +92,7 @@ public class AboutActivityParams implements Parcelable {
         this.shareTextSubject = shareTextSubject;
         this.shareTextBody = shareTextBody;
         this.backgroundResId = backgroundResId;
+        this.isLightIcons = isLightIcons;
     }
 
     @Override
@@ -100,27 +102,29 @@ public class AboutActivityParams implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.appName);
-        dest.writeString(this.buildDate);
-        dest.writeString(this.gitSha1);
-        dest.writeString(this.authorCopyright);
-        dest.writeString(this.license);
+        dest.writeString(appName);
+        dest.writeString(buildDate);
+        dest.writeString(gitSha1);
+        dest.writeString(authorCopyright);
+        dest.writeString(license);
         dest.writeTypedList(linkList);
-        dest.writeString(this.shareTextSubject);
-        dest.writeString(this.shareTextBody);
-        dest.writeInt(this.backgroundResId);
+        dest.writeString(shareTextSubject);
+        dest.writeString(shareTextBody);
+        dest.writeInt(backgroundResId);
+        dest.writeInt(isLightIcons ? 1 : 0);
     }
 
     private AboutActivityParams(Parcel in) {
-        this.appName = in.readString();
-        this.buildDate = in.readString();
-        this.gitSha1 = in.readString();
-        this.authorCopyright = in.readString();
-        this.license = in.readString();
+        appName = in.readString();
+        buildDate = in.readString();
+        gitSha1 = in.readString();
+        authorCopyright = in.readString();
+        license = in.readString();
         in.readTypedList(linkList, Link.CREATOR);
-        this.shareTextSubject = in.readString();
-        this.shareTextBody = in.readString();
-        this.backgroundResId = in.readInt();
+        shareTextSubject = in.readString();
+        shareTextBody = in.readString();
+        backgroundResId = in.readInt();
+        isLightIcons = in.readInt() == 1;
     }
 
     public static final Creator<AboutActivityParams> CREATOR = new Creator<AboutActivityParams>() {
