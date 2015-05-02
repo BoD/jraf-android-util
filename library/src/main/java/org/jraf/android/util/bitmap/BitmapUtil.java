@@ -81,10 +81,10 @@ public class BitmapUtil {
     }
 
     /**
-     * Returns an immutable version of the given bitmap.<br/>
+     * Returns an mutable version of the given bitmap.<br/>
      * The given bitmap is recycled. A temporary file is used (using {@link File#createTempFile(String, String)}) to avoid allocating twice the needed memory.
      */
-    public static Bitmap asImmutable(Bitmap bitmap) throws IOException {
+    public static Bitmap asMutable(Bitmap bitmap) throws IOException {
         // This is the file going to use temporally to dump the bitmap bytes
         File tmpFile = File.createTempFile(String.valueOf(System.currentTimeMillis()), null);
         Log.d(TAG, "getImmutable tmpFile=" + tmpFile);
