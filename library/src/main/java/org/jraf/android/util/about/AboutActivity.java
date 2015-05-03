@@ -29,7 +29,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
@@ -43,7 +43,7 @@ import android.widget.Toast;
 
 import org.jraf.android.util.R;
 
-public class AboutActivity extends ActionBarActivity {
+public class AboutActivity extends AppCompatActivity {
     public static final String EXTRA_PARAMS = "org.jraf.android.util.about.AboutActivity.EXTRA_PARAMS";
     public static final String ACTION_SEND_LOGS = "org.jraf.android.util.about.ACTION_SEND_LOGS";
 
