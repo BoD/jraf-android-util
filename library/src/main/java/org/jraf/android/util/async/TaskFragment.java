@@ -39,7 +39,7 @@ import org.jraf.android.util.handler.HandlerUtil;
 
 /**
  * A non UI {@link Fragment} that executes a task in the background.<br/>
- * A {@link ProgressDialogFragment} is shown while the task is running for at least a few milliseconds.
+ * A {@link ProgressDialogFragment} is optionally shown while the task is running for at least a few milliseconds.
  */
 @SuppressLint("ValidFragment")
 public class TaskFragment extends Fragment {
@@ -54,6 +54,7 @@ public class TaskFragment extends Fragment {
     private boolean mTaskStarted;
     private volatile boolean mTaskFinished;
     private Exception mCallerStackTrace;
+    private boolean mShowProgressDialog;
 
     public TaskFragment() {}
 
@@ -83,18 +84,20 @@ public class TaskFragment extends Fragment {
             @Override
             public void onPreExecute() {
                 mTask.onPreExecute();
-                HandlerUtil.getMainHandler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // This will happen after a small delay, so we must check that the task hasn't already finished,
-                        // and that the fragment is still added.
-                        Log.d(TAG, "onPreExecute mTaskFinished=" + mTaskFinished);
-                        if (!mTaskFinished && isResumed()) {
-                            ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
-                            progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.FRAGMENT_TAG);
+                if (mShowProgressDialog) {
+                    HandlerUtil.getMainHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // This will happen after a small delay, so we must check that the task hasn't already finished,
+                            // and that the fragment is still added.
+                            Log.d(TAG, "onPreExecute mTaskFinished=" + mTaskFinished);
+                            if (!mTaskFinished && isResumed()) {
+                                ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
+                                progressDialogFragment.show(getFragmentManager(), ProgressDialogFragment.FRAGMENT_TAG);
+                            }
                         }
-                    }
-                }, DELAY_SHOW_PROGRESS_DIALOG);
+                    }, DELAY_SHOW_PROGRESS_DIALOG);
+                }
             }
 
             @Override
@@ -141,8 +144,13 @@ public class TaskFragment extends Fragment {
         asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
-    public void execute(FragmentManager fragmentManager) {
+    public void execute(FragmentManager fragmentManager, boolean showProgressDialog) {
+        mShowProgressDialog = showProgressDialog;
         fragmentManager.beginTransaction().add(this, getUniqueFragmentTag()).commitAllowingStateLoss();
+    }
+
+    public void execute(FragmentManager fragmentManager) {
+        execute(fragmentManager, true);
     }
 
     private String getUniqueFragmentTag() {
