@@ -40,8 +40,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.support.annotation.WorkerThread;
 
-import org.jraf.android.util.annotation.Background;
 import org.jraf.android.util.environment.EnvironmentUtil;
 import org.jraf.android.util.io.IoUtil;
 
@@ -324,7 +324,7 @@ public class Log {
      * 
      * @return true if we were able to prepare the log file, false if some error occurred.
      */
-    @Background
+    @WorkerThread
     public static boolean prepareLogFile() {
         android.util.Log.d("Log", "Preparing log file...");
         BufferedInputStream in0 = null;

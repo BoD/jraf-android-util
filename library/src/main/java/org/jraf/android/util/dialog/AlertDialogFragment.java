@@ -23,18 +23,19 @@
  */
 package org.jraf.android.util.dialog;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import android.support.v7.app.AlertDialog;
 
 /**
  * A simple implementation of an {@link AlertDialog}.<br/>
@@ -202,6 +203,7 @@ public class AlertDialogFragment extends DialogFragment {
         mPayload = getArguments().get("payload");
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
