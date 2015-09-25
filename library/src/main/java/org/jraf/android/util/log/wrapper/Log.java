@@ -24,6 +24,8 @@
 package org.jraf.android.util.log.wrapper;
 
 import android.app.Application;
+import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 
 /**
@@ -38,6 +40,8 @@ public class Log {
 
     private static String sTagPrefix = "";
     private static boolean sEnabled = true;
+    @Nullable
+    private static TextView sLogTextView;
 
     /**
      * This can be called prior to using the other methods of this class, to specify a prefix to prepend to the tag.
@@ -46,6 +50,17 @@ public class Log {
     public static void init(String tagPrefix) {
         sTagPrefix = tagPrefix;
         if (!sTagPrefix.endsWith("/")) sTagPrefix += "/";
+    }
+
+    /**
+     * Call this to also log to a TextView in addition to normal Android logging.
+     * This can be useful during early stages of a project.
+     * Pass {@code null} to stop logging to a TextView.
+     *
+     * @param textView The TextView to log to, or {@code null}.
+     */
+    public static void setLogTextView(@Nullable TextView textView) {
+        sLogTextView = textView;
     }
 
     /**
@@ -59,32 +74,49 @@ public class Log {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.d(callerInfo.tag, callerInfo.method);
+        if (sLogTextView != null) sLogTextView.append("E " + formatMessage(callerInfo.method, null, null) + "\n");
     }
 
     public static void d(String msg) {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.d(callerInfo.tag, callerInfo.method + " " + msg);
+        if (sLogTextView != null) sLogTextView.append("D " + formatMessage(callerInfo.method, msg, null) + "\n");
     }
 
     public static void w(String msg) {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.w(callerInfo.tag, callerInfo.method + " " + msg);
+        if (sLogTextView != null) sLogTextView.append("W " + formatMessage(callerInfo.method, msg, null) + "\n");
     }
 
     public static void w(String msg, Throwable t) {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.w(callerInfo.tag, callerInfo.method + " " + msg, t);
+        if (sLogTextView != null) sLogTextView.append("W " + formatMessage(callerInfo.method, msg, t) + "\n");
     }
 
     public static void e(String msg, Throwable t) {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.e(callerInfo.tag, callerInfo.method + " " + msg, t);
+        if (sLogTextView != null) sLogTextView.append("E " + formatMessage(callerInfo.method, msg, t) + "\n");
     }
 
+    private static String formatMessage(String method, @Nullable String msg, @Nullable Throwable t) {
+        StringBuilder sb = new StringBuilder(method);
+        if (msg != null) {
+            sb.append(" ");
+            sb.append(msg);
+        }
+        if (t != null) {
+            sb.append("\n");
+            sb.append(android.util.Log.getStackTraceString(t));
+        }
+        return sb.toString();
+    }
 
     private static CallerInfo getCallerInfo() {
         CallerInfo res = new CallerInfo();
