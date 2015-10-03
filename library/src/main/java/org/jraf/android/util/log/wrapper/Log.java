@@ -25,6 +25,9 @@ package org.jraf.android.util.log.wrapper;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.view.ViewParent;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.jraf.android.util.handler.HandlerUtil;
@@ -76,7 +79,7 @@ public class Log {
         if (!sEnabled) return;
         CallerInfo callerInfo = getCallerInfo();
         android.util.Log.d(callerInfo.tag, callerInfo.method);
-        if (sLogTextView != null) logToTextView("E " + formatMessage(callerInfo.method, null, null) + "\n");
+        if (sLogTextView != null) logToTextView("D " + formatMessage(callerInfo.method, null, null) + "\n");
     }
 
     public static void d(String msg) {
@@ -112,6 +115,10 @@ public class Log {
             @Override
             public void run() {
                 sLogTextView.append(msg);
+                ViewParent parent = sLogTextView.getParent();
+                if (parent instanceof ScrollView) {
+                    ((ScrollView) parent).fullScroll(View.FOCUS_DOWN);
+                }
             }
         });
     }
