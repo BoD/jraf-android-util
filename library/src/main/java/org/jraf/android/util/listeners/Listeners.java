@@ -34,6 +34,7 @@ import org.jraf.android.util.handler.HandlerUtil;
  */
 public class Listeners<T> implements Iterable<T> {
     private Set<T> mListeners = new HashSet<T>(3);
+    private Dispatcher<T> mNewListenerDispatcher;
 
     public static interface Dispatcher<T> {
         void dispatch(T listener);
@@ -46,7 +47,11 @@ public class Listeners<T> implements Iterable<T> {
     public boolean add(T listener) {
         int prevSize = mListeners.size();
         boolean res = mListeners.add(listener);
-        if (res) onListenerCountChanged(prevSize, mListeners.size());
+        if (res) {
+            onListenerCountChanged(prevSize, mListeners.size());
+            if (mNewListenerDispatcher != null) dispatch(listener, mNewListenerDispatcher);
+            onNewListener(listener);
+        }
         return res;
     }
 
@@ -74,7 +79,14 @@ public class Listeners<T> implements Iterable<T> {
 
     protected void onNoMoreListeners() {}
 
+    protected void onNewListener(T listener) {}
+
+    public void setNewListenerDispatcher(Dispatcher<T> newListenerDispatcher) {
+        mNewListenerDispatcher = newListenerDispatcher;
+    }
+
     /**
+     * Dispatch an event to all listeners.<br/>
      * Dispatching will be done in the main/ui thread.
      */
     public void dispatch(final Dispatcher<T> dispatcher) {
@@ -87,6 +99,20 @@ public class Listeners<T> implements Iterable<T> {
             }
         });
     }
+
+    /**
+     * Dispatch an event to a specific listener.<br/>
+     * Dispatching will be done in the main/ui thread.
+     */
+    public void dispatch(final T listener, final Dispatcher<T> dispatcher) {
+        HandlerUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dispatcher.dispatch(listener);
+            }
+        });
+    }
+
 
     /**
      * Returns the current number of listeners.

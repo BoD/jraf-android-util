@@ -29,7 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class IoUtil {
-    private static final int BUFFER_SIZE = 1500;
+    private static final int BUFFER_SIZE = 1448;
 
     /**
      * Silently close the given {@link Closeable}s, ignoring any {@link IOException}.<br/> {@code null} objects are ignored.
