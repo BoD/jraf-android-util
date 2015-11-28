@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +59,7 @@ public class AboutActivity extends AppCompatActivity {
         mParams = (AboutActivityParams) getIntent().getParcelableExtra(EXTRA_PARAMS);
 
         // Background
-        findViewById(R.id.vieRoot).setBackgroundResource(mParams.backgroundResId);
+        ((ImageView) findViewById(R.id.imgBackground)).setImageResource(mParams.backgroundResId);
 
         PackageInfo packageInfo = null;
         try {

@@ -1,95 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/vieRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imgBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scaleType="center" />
 
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/txtAuthorCopyright"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#888" />
-
-        <TextView
-            android:id="@+id/txtLicense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="3dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#888" />
-
-        <LinearLayout
-            android:id="@+id/conLinks"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:orientation="vertical" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="8dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnShare"
+            <TextView
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/util_ic_share_dark"
-                android:drawableStart="@drawable/util_ic_share_dark"
-                android:minWidth="180dp"
-                android:text="@string/about_btnShare"
-                tools:ignore="ButtonStyle" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Button
-                android:id="@+id/btnRate"
+            <TextView
+                android:id="@+id/txtAuthorCopyright"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawableLeft="@drawable/util_ic_rate_dark"
-                android:drawableStart="@drawable/util_ic_rate_dark"
-                android:minWidth="180dp"
-                android:text="@string/about_btnRate"
-                tools:ignore="ButtonStyle" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#888" />
 
-            <Button
-                android:id="@+id/btnOtherApps"
+            <TextView
+                android:id="@+id/txtLicense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:drawableLeft="@drawable/util_ic_other_apps_dark"
-                android:drawableStart="@drawable/util_ic_other_apps_dark"
-                android:minWidth="180dp"
-                android:text="@string/about_btnOtherApps"
-                tools:ignore="ButtonStyle" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#888" />
+
+            <LinearLayout
+                android:id="@+id/conLinks"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:gravity="top"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/util_ic_share_dark"
+                    android:drawableStart="@drawable/util_ic_share_dark"
+                    android:minWidth="180dp"
+                    android:text="@string/about_btnShare"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:drawableLeft="@drawable/util_ic_rate_dark"
+                    android:drawableStart="@drawable/util_ic_rate_dark"
+                    android:minWidth="180dp"
+                    android:text="@string/about_btnRate"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/btnOtherApps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:drawableLeft="@drawable/util_ic_other_apps_dark"
+                    android:drawableStart="@drawable/util_ic_other_apps_dark"
+                    android:minWidth="180dp"
+                    android:text="@string/about_btnOtherApps"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+</FrameLayout>
