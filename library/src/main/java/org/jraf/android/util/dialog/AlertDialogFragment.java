@@ -38,6 +38,8 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -45,9 +47,11 @@ import android.view.LayoutInflater;
 
 /**
  * A simple implementation of an {@link AlertDialog}.<br/>
- * If the calling {@link Activity} implements {@link AlertDialogListener}, it will be notified of button clicks.<br/>
- * If {@link #mCancelIsNegative} is {@code true} (the default value), canceling is considered equivalent
- * to clicking the negative button.
+ * <br/>
+ * If the parent {@link Fragment} or {@link Activity} implements
+ * {@link AlertDialogListener}, it will be notified of button clicks.<br/>
+ * If {@link #mCancelIsNegative} is {@code true} (the default value),
+ * canceling is equivalent to clicking the negative button.
  *
  * @see AlertDialogListener
  */
@@ -233,6 +237,20 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
         mPayload = getArguments().get("payload");
     }
 
+    @Nullable
+    private AlertDialogListener getAlertDialogListener() {
+        AlertDialogListener listener = null;
+        // Try the parent fragment first
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment instanceof AlertDialogListener) {
+            listener = (AlertDialogListener) parentFragment;
+        } else if (getActivity() instanceof AlertDialogListener) {
+            // Then try the activity
+            listener = (AlertDialogListener) getActivity();
+        }
+        return listener;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -251,19 +269,21 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
             builder.setMessage(mMessageId);
         }
 
+        final AlertDialogListener listener = getAlertDialogListener();
+
         // Items
         if (mItems != null) {
             builder.setItems(mItems.toArray(new CharSequence[mItems.size()]), new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onDialogClickListItem(mTag, which, mPayload);
+                    if (listener != null) listener.onDialogClickListItem(mTag, which, mPayload);
                 }
             });
         } else if (mItemsId != 0) {
             builder.setItems(mItemsId, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onDialogClickListItem(mTag, which, mPayload);
+                    if (listener != null) listener.onDialogClickListItem(mTag, which, mPayload);
                 }
             });
         }
@@ -277,18 +297,18 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
         // Buttons
         OnClickListener positiveOnClickListener = null;
         OnClickListener negativeOnClickListener = null;
-        if (getActivity() instanceof AlertDialogListener) {
+        if (listener != null) {
             positiveOnClickListener = new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onDialogClickPositive(mTag, mPayload);
+                    listener.onDialogClickPositive(mTag, mPayload);
                 }
             };
 
             negativeOnClickListener = new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onDialogClickNegative(mTag, mPayload);
+                    listener.onDialogClickNegative(mTag, mPayload);
                 }
             };
         }
@@ -311,17 +331,13 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
 
-        if (mCancelIsNegative) {
-            if (getActivity() instanceof AlertDialogListener) {
-                ((AlertDialogListener) getActivity()).onDialogClickNegative(mTag, mPayload);
-            }
+        AlertDialogListener listener = getAlertDialogListener();
+        if (mCancelIsNegative && listener != null) {
+            listener.onDialogClickNegative(mTag, mPayload);
         }
     }
 
-    /**
-     * Show this {@link AlertDialogFragment}.
-     */
-    public void show(FragmentManager manager) {
+    private void show(FragmentManager manager) {
         try {
             show(manager, FRAGMENT_TAG);
         } catch (Throwable ignored) {
@@ -329,5 +345,19 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
             // When that happens, it generally means the activity has been finished so we probably don't want to show the dialog anyway.
             // Just catch it.
         }
+    }
+
+    /**
+     * Show this {@link AlertDialogFragment}.
+     */
+    public void show(FragmentActivity activity) {
+        show(activity.getSupportFragmentManager());
+    }
+
+    /**
+     * Show this {@link AlertDialogFragment}.
+     */
+    public void show(Fragment fragment) {
+        show(fragment.getChildFragmentManager());
     }
 }
