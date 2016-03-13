@@ -6,6 +6,8 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-    <application tools:overrideLibrary="timber.log" />
+    <uses-sdk tools:overrideLibrary="timber.log" />
+
+    <application />
 
 </manifest>

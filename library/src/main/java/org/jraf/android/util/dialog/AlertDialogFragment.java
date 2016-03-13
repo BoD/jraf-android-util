@@ -28,39 +28,46 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDialogFragment;
+import android.view.LayoutInflater;
 
 /**
  * A simple implementation of an {@link AlertDialog}.<br/>
  * If the calling {@link Activity} implements {@link AlertDialogListener}, it will be notified of button clicks.<br/>
  * If {@link #mCancelIsNegative} is {@code true} (the default value), canceling is considered equivalent
  * to clicking the negative button.
- * 
+ *
  * @see AlertDialogListener
  */
-public class AlertDialogFragment extends DialogFragment {
+public class AlertDialogFragment extends AppCompatDialogFragment {
     private static final String PREFIX = AlertDialogFragment.class.getName() + ".";
     public static final String FRAGMENT_TAG = PREFIX + "FRAGMENT_TAG";
 
     private int mTag;
-    private String mTitle;
+    private CharSequence mTitle;
     private int mTitleId;
-    private String mMessage;
+    private CharSequence mMessage;
     private int mMessageId;
     private ArrayList<CharSequence> mItems;
     private int mItemsId;
-    private String mPositiveButton;
+    private CharSequence mPositiveButton;
     private int mPositiveButtonId;
-    private String mNegativeButton;
+    private CharSequence mNegativeButton;
     private int mNegativeButtonId;
     private boolean mCancelIsNegative;
+    private int mViewId;
     private Object mPayload;
 
     private Bundle getArgs() {
@@ -74,14 +81,14 @@ public class AlertDialogFragment extends DialogFragment {
 
     /**
      * Create a new {@link AlertDialogFragment}.
-     * 
+     *
      * @param tag A tag to use to identify the origin of click events in the calling {@link Activity}.
      * @return The newly built {@link AlertDialogFragment}.
      */
     public static AlertDialogFragment newInstance(int tag) {
         AlertDialogFragment res = new AlertDialogFragment();
         res.getArgs().putInt("tag", tag);
-        res.setCancelIsNegative(true);
+        res.cancelIsNegative(true);
         return res;
     }
 
@@ -89,99 +96,121 @@ public class AlertDialogFragment extends DialogFragment {
     /**
      * @param resId The resource id to be used for the title text, or {@code 0} for no title.
      */
-    public void setTitle(int resId) {
+    public AlertDialogFragment title(@StringRes int resId) {
         getArgs().putInt("titleId", resId);
+        return this;
     }
 
     /**
      * @param title The title text, or {@code null} for no title.
      */
-    public void setTitle(String title) {
-        getArgs().putString("title", title);
+    public AlertDialogFragment title(@Nullable CharSequence title) {
+        getArgs().putCharSequence("title", title);
+        return this;
     }
 
 
     /**
      * @param resId The resource id to be used for the message text, or {@code 0} for no message.
      */
-    public void setMessage(int resId) {
+    public AlertDialogFragment message(@StringRes int resId) {
         getArgs().putInt("messageId", resId);
+        return this;
     }
 
     /**
      * @param message The message text, or {@code null} for no message.
      */
-    public void setMessage(String message) {
-        getArgs().putString("message", message);
+    public AlertDialogFragment message(@Nullable CharSequence message) {
+        getArgs().putCharSequence("message", message);
+        return this;
     }
 
 
     /**
      * @param resId The resource id to be used for the list items, or {@code 0} for no list.
      */
-    public void setItems(int resId) {
+    public AlertDialogFragment items(@ArrayRes int resId) {
         getArgs().putInt("itemsId", resId);
+        return this;
     }
 
     /**
      * @param items The list items, or {@code null} for no list.
      */
-    public void setItems(ArrayList<CharSequence> items) {
+    public AlertDialogFragment items(@Nullable ArrayList<CharSequence> items) {
         getArgs().putCharSequenceArrayList("items", items);
+        return this;
+    }
+
+
+    /**
+     * @param resId The resource id to be used for the view layout, or {@code 0} for no view.
+     */
+    public AlertDialogFragment view(@LayoutRes int resId) {
+        getArgs().putInt("view", resId);
+        return this;
     }
 
 
     /**
      * @param resId The resource id to be used for the negative button text, or {@code 0} for no negative button.
      */
-    public void setNegativeButton(int resId) {
+    public AlertDialogFragment negativeButton(@StringRes int resId) {
         getArgs().putInt("negativeButtonId", resId);
+        return this;
     }
 
     /**
      * @param negativeButton The negative button text, or {@code null} for no negative button.
      */
-    public void setNegativeButton(String negativeButton) {
-        getArgs().putString("negativeButton", negativeButton);
+    public AlertDialogFragment negativeButton(@Nullable CharSequence negativeButton) {
+        getArgs().putCharSequence("negativeButton", negativeButton);
+        return this;
     }
 
 
     /**
      * @param resId The resource id to be used for the positive button text, or {@code 0} for no positive button.
      */
-    public void setPositiveButton(int resId) {
+    public AlertDialogFragment positiveButton(@StringRes int resId) {
         getArgs().putInt("positiveButtonId", resId);
+        return this;
     }
 
     /**
      * @param positiveButton The positive button text, or {@code null} for no positive button.
      */
-    public void setPositiveButton(String positiveButton) {
-        getArgs().putString("positiveButton", positiveButton);
+    public AlertDialogFragment positiveButton(@Nullable CharSequence positiveButton) {
+        getArgs().putCharSequence("positiveButton", positiveButton);
+        return this;
     }
 
 
     /**
      * @param payload A payload that will be passed back to click events in the calling {@link Activity}.
      */
-    public void setPayload(Serializable payload) {
+    public AlertDialogFragment payload(Serializable payload) {
         getArgs().putSerializable("payload", payload);
+        return this;
     }
 
     /**
      * @param payload A payload that will be passed back to click events in the calling {@link Activity}.
      */
-    public void setPayload(Parcelable payload) {
+    public AlertDialogFragment payload(Parcelable payload) {
         getArgs().putParcelable("payload", payload);
+        return this;
     }
 
 
     /**
      * @param cancelIsNegative If {@code true} (the default value), canceling is considered equivalent
-     *            to clicking the negative button.
+     * to clicking the negative button.
      */
-    public void setCancelIsNegative(boolean cancelIsNegative) {
+    public AlertDialogFragment cancelIsNegative(boolean cancelIsNegative) {
         getArgs().putBoolean("cancelIsNegative", cancelIsNegative);
+        return this;
     }
 
 
@@ -189,15 +218,16 @@ public class AlertDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTag = getArguments().getInt("tag");
-        mTitle = getArguments().getString("title");
+        mTitle = getArguments().getCharSequence("title");
         mTitleId = getArguments().getInt("titleId");
-        mMessage = getArguments().getString("message");
+        mMessage = getArguments().getCharSequence("message");
         mMessageId = getArguments().getInt("messageId");
         mItems = getArguments().getCharSequenceArrayList("items");
         mItemsId = getArguments().getInt("itemsId");
-        mPositiveButton = getArguments().getString("positiveButton");
+        mViewId = getArguments().getInt("view");
+        mPositiveButton = getArguments().getCharSequence("positiveButton");
         mPositiveButtonId = getArguments().getInt("positiveButtonId");
-        mNegativeButton = getArguments().getString("negativeButton");
+        mNegativeButton = getArguments().getCharSequence("negativeButton");
         mNegativeButtonId = getArguments().getInt("negativeButtonId");
         mCancelIsNegative = getArguments().getBoolean("cancelIsNegative");
         mPayload = getArguments().get("payload");
@@ -206,52 +236,63 @@ public class AlertDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Title
         if (mTitle != null) {
             builder.setTitle(mTitle);
         } else if (mTitleId != 0) {
             builder.setTitle(mTitleId);
         }
 
+        // Message
         if (mMessage != null) {
             builder.setMessage(mMessage);
         } else if (mMessageId != 0) {
             builder.setMessage(mMessageId);
         }
 
+        // Items
         if (mItems != null) {
             builder.setItems(mItems.toArray(new CharSequence[mItems.size()]), new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onClickListItem(mTag, which, mPayload);
+                    ((AlertDialogListener) getActivity()).onDialogClickListItem(mTag, which, mPayload);
                 }
             });
         } else if (mItemsId != 0) {
             builder.setItems(mItemsId, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onClickListItem(mTag, which, mPayload);
+                    ((AlertDialogListener) getActivity()).onDialogClickListItem(mTag, which, mPayload);
                 }
             });
         }
 
+        // View
+        if (mViewId != 0) {
+            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            builder.setView(layoutInflater.inflate(mViewId, null, false));
+        }
+
+        // Buttons
         OnClickListener positiveOnClickListener = null;
         OnClickListener negativeOnClickListener = null;
         if (getActivity() instanceof AlertDialogListener) {
             positiveOnClickListener = new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onClickPositive(mTag, mPayload);
+                    ((AlertDialogListener) getActivity()).onDialogClickPositive(mTag, mPayload);
                 }
             };
 
             negativeOnClickListener = new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((AlertDialogListener) getActivity()).onClickNegative(mTag, mPayload);
+                    ((AlertDialogListener) getActivity()).onDialogClickNegative(mTag, mPayload);
                 }
             };
         }
+
         if (mPositiveButton != null) {
             builder.setPositiveButton(mPositiveButton, positiveOnClickListener);
         } else if (mPositiveButtonId != 0) {
@@ -272,7 +313,7 @@ public class AlertDialogFragment extends DialogFragment {
 
         if (mCancelIsNegative) {
             if (getActivity() instanceof AlertDialogListener) {
-                ((AlertDialogListener) getActivity()).onClickNegative(mTag, mPayload);
+                ((AlertDialogListener) getActivity()).onDialogClickNegative(mTag, mPayload);
             }
         }
     }
@@ -281,6 +322,12 @@ public class AlertDialogFragment extends DialogFragment {
      * Show this {@link AlertDialogFragment}.
      */
     public void show(FragmentManager manager) {
-        show(manager, FRAGMENT_TAG);
+        try {
+            show(manager, FRAGMENT_TAG);
+        } catch (Throwable ignored) {
+            // There are times where this could be called after onSaveInstanceState, which throws an IllegalStateException.
+            // When that happens, it generally means the activity has been finished so we probably don't want to show the dialog anyway.
+            // Just catch it.
+        }
     }
 }

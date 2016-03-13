@@ -29,9 +29,9 @@ import android.app.Activity;
  * Interface that an {@link Activity} can implement to {@link AlertDialogFragment} related events.
  */
 public interface AlertDialogListener {
-    void onClickPositive(int tag, Object payload);
+    void onDialogClickPositive(int tag, Object payload);
 
-    void onClickNegative(int tag, Object payload);
+    void onDialogClickNegative(int tag, Object payload);
 
-    void onClickListItem(int tag, int index, Object payload);
+    void onDialogClickListItem(int tag, int index, Object payload);
 }
