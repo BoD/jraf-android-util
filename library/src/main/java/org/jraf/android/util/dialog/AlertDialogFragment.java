@@ -38,6 +38,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -61,17 +62,18 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
 
     private int mTag;
     private CharSequence mTitle;
-    private int mTitleId;
+    private @StringRes int mTitleId;
     private CharSequence mMessage;
-    private int mMessageId;
+    private @StringRes int mMessageId;
     private ArrayList<CharSequence> mItems;
-    private int mItemsId;
+    private @ArrayRes int mItemsId;
     private CharSequence mPositiveButton;
-    private int mPositiveButtonId;
+    private @StringRes int mPositiveButtonId;
     private CharSequence mNegativeButton;
-    private int mNegativeButtonId;
+    private @StringRes int mNegativeButtonId;
     private boolean mCancelIsNegative;
-    private int mViewId;
+    private @LayoutRes int mViewId;
+    private @StyleRes int mThemeId;
     private Object mPayload;
 
     private Bundle getArgs() {
@@ -218,6 +220,15 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
     }
 
 
+    /**
+     * @param resId The resource id to be used for the theme, or {@code 0} to use the default theme.
+     */
+    public AlertDialogFragment themeId(@StyleRes int resId) {
+        getArgs().putInt("themeId", resId);
+        return this;
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,6 +246,7 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
         mNegativeButtonId = getArguments().getInt("negativeButtonId");
         mCancelIsNegative = getArguments().getBoolean("cancelIsNegative");
         mPayload = getArguments().get("payload");
+        mThemeId = getArguments().getInt("themeId");
     }
 
     @Nullable
@@ -254,7 +266,14 @@ public class AlertDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder;
+        // Theme
+        if (mThemeId == 0) {
+            builder = new AlertDialog.Builder(getActivity());
+        } else {
+            builder = new AlertDialog.Builder(getActivity(), mThemeId);
+        }
+
         // Title
         if (mTitle != null) {
             builder.setTitle(mTitle);
