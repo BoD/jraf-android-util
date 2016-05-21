@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import org.jraf.android.util.Constants;
@@ -151,6 +152,14 @@ public class TaskFragment extends Fragment {
 
     public void execute(FragmentManager fragmentManager) {
         execute(fragmentManager, true);
+    }
+
+    public void execute(AppCompatActivity activity, boolean showProgressDialog) {
+        execute(activity.getSupportFragmentManager(), showProgressDialog);
+    }
+
+    public void execute(AppCompatActivity activity) {
+        execute(activity.getSupportFragmentManager());
     }
 
     private String getUniqueFragmentTag() {

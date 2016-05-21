@@ -24,6 +24,7 @@
 package org.jraf.android.util.collection;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -34,7 +35,7 @@ import java.util.Map;
 public class CollectionUtil {
     /**
      * Converts an array of {@code int} into a {@link List} of {@link Integer}.
-     * 
+     *
      * @param intArray The array to convert.
      * @return The newly created {@link List}.
      */
@@ -48,7 +49,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@code long} into a {@link List} of {@link Long}.
-     * 
+     *
      * @param longArray The array to convert.
      * @return The newly created {@link List}.
      */
@@ -62,7 +63,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@code int} into an array of {@link Integer}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -77,7 +78,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@link Integer} into an array of {@code int}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -91,8 +92,19 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts a collection of {@link Integer} into an array of {@code int}.
+     *
+     * @param value The collection to convert.
+     * @return The newly created array.
+     */
+    public static int[] unwrapInt(Collection<Integer> value) {
+        if (value == null) return null;
+        return unwrap(value.toArray(new Integer[value.size()]));
+    }
+
+    /**
      * Converts an array of {@code long} into an array of {@link Long}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -107,7 +119,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@link Long} into an array of {@code long}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -121,8 +133,19 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts a collection of {@link Long} into an array of {@code long}.
+     *
+     * @param value The collection to convert.
+     * @return The newly created array.
+     */
+    public static long[] unwrapLong(Collection<Long> value) {
+        if (value == null) return null;
+        return unwrap(value.toArray(new Long[value.size()]));
+    }
+
+    /**
      * Converts an array of {@code double} into an array of {@link Double}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -137,7 +160,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@link Double} into an array of {@code double}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -151,8 +174,19 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts a collection of {@link Double} into an array of {@code double}.
+     *
+     * @param value The collection to convert.
+     * @return The newly created array.
+     */
+    public static double[] unwrapDouble(Collection<Double> value) {
+        if (value == null) return null;
+        return unwrap(value.toArray(new Double[value.size()]));
+    }
+
+    /**
      * Converts an array of {@code float} into an array of {@link Float}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -167,7 +201,7 @@ public class CollectionUtil {
 
     /**
      * Converts an array of {@link Float} into an array of {@code float}.
-     * 
+     *
      * @param value The array to convert.
      * @return The newly created array.
      */
@@ -181,8 +215,19 @@ public class CollectionUtil {
     }
 
     /**
+     * Converts a collection of {@link Float} into an array of {@code float}.
+     *
+     * @param value The collection to convert.
+     * @return The newly created array.
+     */
+    public static float[] unwrapFloat(Collection<Float> value) {
+        if (value == null) return null;
+        return unwrap(value.toArray(new Float[value.size()]));
+    }
+
+    /**
      * Returns a new {@link Map} where the values are sorted according to the given comparator (or using the natural order if the comparator is {@code null}).
-     * 
+     *
      * @param map The original map of which to get a sorted version.
      * @param comparator The comparator to use, or {@code null} to use the natural order.
      */
