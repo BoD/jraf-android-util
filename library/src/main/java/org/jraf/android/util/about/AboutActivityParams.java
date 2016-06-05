@@ -24,11 +24,11 @@
  */
 package org.jraf.android.util.about;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 public class AboutActivityParams implements Parcelable {
     public static class Link implements Parcelable {
@@ -48,13 +48,13 @@ public class AboutActivityParams implements Parcelable {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.uri);
-            dest.writeString(this.text);
+            dest.writeString(uri);
+            dest.writeString(text);
         }
 
         private Link(Parcel in) {
-            this.uri = in.readString();
-            this.text = in.readString();
+            uri = in.readString();
+            text = in.readString();
         }
 
         public static final Parcelable.Creator<Link> CREATOR = new Parcelable.Creator<Link>() {
@@ -80,9 +80,10 @@ public class AboutActivityParams implements Parcelable {
     public String shareTextBody;
     public int backgroundResId;
     public boolean isLightIcons;
+    public String authorPlayStoreName;
 
     public AboutActivityParams(String appName, String buildDate, String gitSha1, String authorCopyright, String license, List<Link> linkList,
-                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons) {
+                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons, String authorPlayStoreName) {
         this.appName = appName;
         this.buildDate = buildDate;
         this.gitSha1 = gitSha1;
@@ -93,6 +94,7 @@ public class AboutActivityParams implements Parcelable {
         this.shareTextBody = shareTextBody;
         this.backgroundResId = backgroundResId;
         this.isLightIcons = isLightIcons;
+        this.authorPlayStoreName = authorPlayStoreName;
     }
 
     @Override
@@ -112,6 +114,7 @@ public class AboutActivityParams implements Parcelable {
         dest.writeString(shareTextBody);
         dest.writeInt(backgroundResId);
         dest.writeInt(isLightIcons ? 1 : 0);
+        dest.writeString(authorPlayStoreName);
     }
 
     private AboutActivityParams(Parcel in) {
@@ -125,6 +128,7 @@ public class AboutActivityParams implements Parcelable {
         shareTextBody = in.readString();
         backgroundResId = in.readInt();
         isLightIcons = in.readInt() == 1;
+        authorPlayStoreName = in.readString();
     }
 
     public static final Creator<AboutActivityParams> CREATOR = new Creator<AboutActivityParams>() {

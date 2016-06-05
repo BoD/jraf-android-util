@@ -161,7 +161,7 @@ public class AboutActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://search?q=pub:BoD"));
+            intent.setData(Uri.parse("market://search?q=pub:" + mParams.authorPlayStoreName));
             startActivity(Intent.createChooser(intent, null));
         }
     };

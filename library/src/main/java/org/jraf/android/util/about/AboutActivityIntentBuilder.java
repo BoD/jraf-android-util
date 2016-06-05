@@ -24,11 +24,11 @@
  */
 package org.jraf.android.util.about;
 
-import android.content.Context;
-import android.content.Intent;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
+import android.content.Intent;
 
 public class AboutActivityIntentBuilder {
     private String mAppName;
@@ -41,6 +41,7 @@ public class AboutActivityIntentBuilder {
     private String mShareTextBody;
     private int mBackgroundResId;
     private boolean mIsLightIcons;
+    private String mAuthorPlayStoreName = "BoD";
 
     public AboutActivityIntentBuilder setAppName(String appName) {
         mAppName = appName;
@@ -92,9 +93,14 @@ public class AboutActivityIntentBuilder {
         return this;
     }
 
+    public AboutActivityIntentBuilder setAuthorPlayStoreNamee(String authorPlayStoreName) {
+        mAuthorPlayStoreName = authorPlayStoreName;
+        return this;
+    }
+
     public Intent build(Context context) {
         AboutActivityParams params = new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mLinkList, mShareTextSubject,
-                mShareTextBody, mBackgroundResId, mIsLightIcons);
+                mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName);
         Intent intent = new Intent(context, AboutActivity.class);
         intent.putExtra(AboutActivity.EXTRA_PARAMS, params);
         return intent;
