@@ -93,7 +93,7 @@ public class AboutActivityIntentBuilder {
         return this;
     }
 
-    public AboutActivityIntentBuilder setAuthorPlayStoreNamee(String authorPlayStoreName) {
+    public AboutActivityIntentBuilder setAuthorPlayStoreName(String authorPlayStoreName) {
         mAuthorPlayStoreName = authorPlayStoreName;
         return this;
     }
