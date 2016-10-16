@@ -42,6 +42,7 @@ public class AboutActivityIntentBuilder {
     private int mBackgroundResId;
     private boolean mIsLightIcons;
     private String mAuthorPlayStoreName = "BoD";
+    private String mSendLogsEmailAddress = "BoD@JRAF.org";
 
     public AboutActivityIntentBuilder setAppName(String appName) {
         mAppName = appName;
@@ -98,9 +99,14 @@ public class AboutActivityIntentBuilder {
         return this;
     }
 
+    public AboutActivityIntentBuilder setSendLogsEmailAddress(String sendLogsEmailAddress) {
+        mSendLogsEmailAddress = sendLogsEmailAddress;
+        return this;
+    }
+
     public Intent build(Context context) {
         AboutActivityParams params = new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mLinkList, mShareTextSubject,
-                mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName);
+                mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName, mSendLogsEmailAddress);
         Intent intent = new Intent(context, AboutActivity.class);
         intent.putExtra(AboutActivity.EXTRA_PARAMS, params);
         return intent;
