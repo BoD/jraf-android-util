@@ -33,7 +33,7 @@
     <string name="about_action_sendLogs">Send logs</string>
     <string name="about_sendingLogsToast">Logs are being sent.</string>
 
-    <string name="about_txtTitle" translatable="false"><![CDATA[<b>%1$s</b> v%2$s/%3$s<br/>Built on %4$s<font color="#808080"> – %5$s</font>]]></string>
+    <string name="about_txtTitle" translatable="false"><![CDATA[<b>%1$s</b> v%2$s/%3$d<br/>Built on %4$s<font color="#808080"> – %5$s</font>]]></string>
     <string name="about_arrow" translatable="false">→</string>
 
     <string name="about_btnShare">Share app</string>

@@ -81,9 +81,11 @@ public class AboutActivityParams implements Parcelable {
     public int backgroundResId;
     public boolean isLightIcons;
     public String authorPlayStoreName;
+    public String sendLogsEmailAddress;
 
     public AboutActivityParams(String appName, String buildDate, String gitSha1, String authorCopyright, String license, List<Link> linkList,
-                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons, String authorPlayStoreName) {
+                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons, String authorPlayStoreName,
+                               String sendLogsEmailAddress) {
         this.appName = appName;
         this.buildDate = buildDate;
         this.gitSha1 = gitSha1;
@@ -95,6 +97,7 @@ public class AboutActivityParams implements Parcelable {
         this.backgroundResId = backgroundResId;
         this.isLightIcons = isLightIcons;
         this.authorPlayStoreName = authorPlayStoreName;
+        this.sendLogsEmailAddress = sendLogsEmailAddress;
     }
 
     @Override
@@ -115,6 +118,7 @@ public class AboutActivityParams implements Parcelable {
         dest.writeInt(backgroundResId);
         dest.writeInt(isLightIcons ? 1 : 0);
         dest.writeString(authorPlayStoreName);
+        dest.writeString(sendLogsEmailAddress);
     }
 
     private AboutActivityParams(Parcel in) {
@@ -129,6 +133,7 @@ public class AboutActivityParams implements Parcelable {
         backgroundResId = in.readInt();
         isLightIcons = in.readInt() == 1;
         authorPlayStoreName = in.readString();
+        sendLogsEmailAddress = in.readString();
     }
 
     public static final Creator<AboutActivityParams> CREATOR = new Creator<AboutActivityParams>() {

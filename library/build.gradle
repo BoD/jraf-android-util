@@ -5,10 +5,10 @@ version = '1.0.0'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 24
     }
 
@@ -21,8 +21,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.jakewharton.timber:timber:4.3.0'
     compile files('libs/http-request-5.3-SNAPSHOT.jar')
 }
 

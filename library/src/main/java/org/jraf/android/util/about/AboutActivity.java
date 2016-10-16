@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -43,10 +44,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jraf.android.util.R;
+import org.jraf.android.util.log.Log;
 
 public class AboutActivity extends AppCompatActivity {
     public static final String EXTRA_PARAMS = "org.jraf.android.util.about.AboutActivity.EXTRA_PARAMS";
-    public static final String ACTION_SEND_LOGS = "org.jraf.android.util.about.ACTION_SEND_LOGS";
 
     private AboutActivityParams mParams;
 
@@ -128,8 +129,13 @@ public class AboutActivity extends AppCompatActivity {
             return true;
         } else if (i == R.id.menu_sendLogs) {
             Toast.makeText(this, R.string.about_sendingLogsToast, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ACTION_SEND_LOGS);
-            sendBroadcast(intent);
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    Log.sendAppLogsByMail(AboutActivity.this, mParams.sendLogsEmailAddress);
+                    return null;
+                }
+            }.execute();
             return true;
         }
         return super.onOptionsItemSelected(item);
