@@ -27,7 +27,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 public class LogUtil {
-    private static final String UNKNOWN = "(unknown value)";
+    private static final String UNKNOWN = "(unknown value %s)";
 
     /**
      * Use reflection to return the name of the constant in the class {@code clazz} that corresponds to the given value.
@@ -52,10 +52,10 @@ public class LogUtil {
             try {
                 if (field.get(null).equals(value)) return field.getName();
             } catch (Exception e) {
-                return UNKNOWN;
+                return String.format(UNKNOWN, value);
             }
         }
-        return UNKNOWN;
+        return String.format(UNKNOWN, value);
     }
 
     /**
