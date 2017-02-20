@@ -29,6 +29,8 @@ import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.view.View;
 
+import org.jraf.android.util.R;
+
 public class AnimationUtil {
     public static void animateVisible(View v) {
         if (v.getVisibility() == View.VISIBLE) return;
@@ -48,6 +50,8 @@ public class AnimationUtil {
 
     private static void animate(View v, final int visibility) {
         if (v.getVisibility() == visibility) return;
+        if (Integer.valueOf(visibility).equals(v.getTag(R.id.animation_visibility))) return;
+        v.setTag(R.id.animation_visibility, visibility);
         final ViewPropertyAnimatorCompat animator = ViewCompat.animate(v);
         animator.alpha(0F).setListener(new ViewPropertyAnimatorListener() {
             @Override
@@ -59,6 +63,7 @@ public class AnimationUtil {
             @Override
             public void onAnimationEnd(View view) {
                 view.setVisibility(visibility);
+                view.setTag(R.id.animation_visibility, null);
 
                 // Remove this listener
                 animator.setListener(null);
