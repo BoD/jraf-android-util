@@ -29,6 +29,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 
 public class AboutActivityIntentBuilder {
     private String mAppName;
@@ -107,7 +108,10 @@ public class AboutActivityIntentBuilder {
     public Intent build(Context context) {
         AboutActivityParams params = new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mLinkList, mShareTextSubject,
                 mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName, mSendLogsEmailAddress);
-        Intent intent = new Intent(context, AboutActivity.class);
+
+        boolean isWatch = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH);
+        Class<?> activityClass = isWatch ? WearAboutActivity.class : AboutActivity.class;
+        Intent intent = new Intent(context, activityClass);
         intent.putExtra(AboutActivity.EXTRA_PARAMS, params);
         return intent;
     }

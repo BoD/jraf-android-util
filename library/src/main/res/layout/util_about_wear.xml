@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:targetApi="m">
+
+    <data>
+
+        <import type="org.jraf.android.util.ui.screenshape.ScreenShapeHelper" />
+
+        <variable
+            name="params"
+            type="org.jraf.android.util.about.AboutActivityParams" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                android:paddingRight="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                android:paddingTop="@{ScreenShapeHelper.get(context).safeMargin * 1.5F + @dimen/about_wear_padding_vertical}">
+
+                <!-- App icon -->
+                <ImageView
+                    android:id="@+id/imgAppIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="?android:attr/textColorPrimary"
+                    tools:text="App name" />
+
+                <!-- Author and copyright -->
+                <TextView
+                    android:id="@+id/txtAuthorCopyright"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:breakStrategy="high_quality"
+                    android:hyphenationFrequency="full"
+                    android:text="@{params.authorCopyright}"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="Copyright (C) 2015–2017 Benoit \'BoD\' Lubek.\nLogo and artwork by David Rodriguez.\nAdditional code by Carmen Alvarez." />
+
+                <!-- License -->
+                <TextView
+                    android:id="@+id/txtLicense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@{params.license}"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="App license" />
+
+                <!-- Links -->
+                <LinearLayout
+                    android:id="@+id/conLinks"
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="?android:colorBackgroundFloating"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="@{ScreenShapeHelper.get(context).safeMargin * 1.5F}">
+
+                <!-- Share -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/action_item_background"
+                    android:onClick="onShareClick"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingRight="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/action_drawer_item_icon_size"
+                        android:layout_height="@dimen/action_drawer_item_icon_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
+                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
+                        android:background="@drawable/action_item_icon_background"
+                        android:padding="@dimen/action_drawer_item_icon_padding"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/util_ic_share_dark"
+                        android:tint="?android:attr/colorBackground"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/WearableActionDrawerItemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_btnShare" />
+
+                </LinearLayout>
+
+                <!-- Rate -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/action_item_background"
+                    android:onClick="onRateClick"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingRight="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/action_drawer_item_icon_size"
+                        android:layout_height="@dimen/action_drawer_item_icon_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
+                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
+                        android:background="@drawable/action_item_icon_background"
+                        android:padding="@dimen/action_drawer_item_icon_padding"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/util_ic_rate_dark"
+                        android:tint="?android:attr/colorBackground"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/WearableActionDrawerItemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_btnRate" />
+
+                </LinearLayout>
+
+                <!-- Other apps -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/action_item_background"
+                    android:onClick="onOtherAppsClick"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingRight="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:layout_width="@dimen/action_drawer_item_icon_size"
+                        android:layout_height="@dimen/action_drawer_item_icon_size"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
+                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
+                        android:background="@drawable/action_item_icon_background"
+                        android:padding="@dimen/action_drawer_item_icon_padding"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/util_ic_other_apps_dark"
+                        android:tint="?android:attr/colorBackground"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        style="@style/WearableActionDrawerItemText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_btnOtherApps" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

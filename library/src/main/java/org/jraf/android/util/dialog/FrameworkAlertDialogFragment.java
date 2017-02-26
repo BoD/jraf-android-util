@@ -29,21 +29,22 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 
 /**
@@ -56,6 +57,7 @@ import android.view.LayoutInflater;
  *
  * @see AlertDialogListener
  */
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class FrameworkAlertDialogFragment extends DialogFragment {
     private static final String PREFIX = FrameworkAlertDialogFragment.class.getName() + ".";
     public static final String FRAGMENT_TAG = PREFIX + "FRAGMENT_TAG";
@@ -369,8 +371,8 @@ public class FrameworkAlertDialogFragment extends DialogFragment {
     /**
      * Show this {@link FrameworkAlertDialogFragment}.
      */
-    public void show(FragmentActivity activity) {
-        show(activity.getSupportFragmentManager());
+    public void show(Activity activity) {
+        show(activity.getFragmentManager());
     }
 
     /**

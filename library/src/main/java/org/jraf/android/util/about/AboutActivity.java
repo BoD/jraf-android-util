@@ -57,7 +57,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.util_about);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mParams = (AboutActivityParams) getIntent().getParcelableExtra(EXTRA_PARAMS);
+        mParams = getIntent().getParcelableExtra(EXTRA_PARAMS);
 
         // Background
         ((ImageView) findViewById(R.id.imgBackground)).setImageResource(mParams.backgroundResId);
@@ -97,12 +97,12 @@ public class AboutActivity extends AppCompatActivity {
         // Links
         ViewGroup conLinks = (ViewGroup) findViewById(R.id.conLinks);
         for (AboutActivityParams.Link link : mParams.linkList) {
-            View linkView = createLinkView(conLinks, link);
+            createLinkView(conLinks, link);
         }
     }
 
     private View createLinkView(ViewGroup conLinks, AboutActivityParams.Link link) {
-        TextView res = (TextView) getLayoutInflater().inflate(R.layout.about_link, conLinks, false);
+        TextView res = (TextView) getLayoutInflater().inflate(R.layout.util_about_link, conLinks, false);
         conLinks.addView(res);
         res.setMovementMethod(LinkMovementMethod.getInstance());
         res.setText(Html.fromHtml(String.format("→ <a href=\"%s\">%s</a>", link.uri, link.text)));

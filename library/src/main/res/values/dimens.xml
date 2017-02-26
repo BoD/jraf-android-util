@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="about_wear_padding_vertical">8dp</dimen>
+    <dimen name="about_wear_padding_horizontal">8dp</dimen>
+</resources>
