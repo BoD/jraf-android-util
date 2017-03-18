@@ -32,10 +32,14 @@ import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.wearable.view.ConfirmationOverlay;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.android.wearable.intent.RemoteIntent;
 
 import org.jraf.android.util.R;
 import org.jraf.android.util.databinding.UtilAboutWearBinding;
@@ -92,28 +96,46 @@ public class WearAboutActivity extends Activity {
     }
 
     private void openUri(String uri) {
-
+        openOnPhone(Uri.parse(uri));
     }
 
     public void onShareClick(View view) {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, mParams.shareTextSubject);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, mParams.shareTextSubject);
         String shareTextBody = String.format(mParams.shareTextBody, getPackageName());
-        shareIntent.putExtra(Intent.EXTRA_TEXT, shareTextBody);
-        shareIntent.putExtra("sms_body", shareTextBody);
-        startActivity(Intent.createChooser(shareIntent, getString(R.string.about_shareWith)));
+        intent.putExtra(Intent.EXTRA_TEXT, shareTextBody);
+        intent.putExtra("sms_body", shareTextBody);
+        intent = Intent.createChooser(intent, getString(R.string.about_shareWith));
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+
+        sendBroadcast((new Intent("com.google.android.wearable.intent.action.REMOTE_INTENT")).setPackage("com.google.android.wearable.app")
+                .putExtra("com.google.android.wearable.intent.extra.INTENT", intent).putExtra("com.google.android.wearable.intent.extra.NODE_ID", (String) null)
+                .putExtra("com.google.android.wearable.intent.extra.RESULT_RECEIVER", (Parcelable) null));
     }
 
     public void onRateClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + getPackageName()));
-        startActivity(Intent.createChooser(intent, null));
+        openOnPhone(Uri.parse("market://details?id=" + getPackageName()));
     }
 
     public void onOtherAppsClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://search?q=pub:" + mParams.authorPlayStoreName));
-        startActivity(Intent.createChooser(intent, null));
+        openOnPhone(Uri.parse("market://search?q=pub:" + mParams.authorPlayStoreName));
+    }
+
+    private void openOnWatch(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    private void openOnPhone(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        RemoteIntent.startRemoteActivity(this, intent, null);
+
+        // 'Open on phone' confirmation overlay
+        new ConfirmationOverlay()
+                .setType(ConfirmationOverlay.OPEN_ON_PHONE_ANIMATION)
+                .setMessage(getString(R.string.wear_about_confirmation_openedOnPhone))
+                .showOn(this);
     }
 }

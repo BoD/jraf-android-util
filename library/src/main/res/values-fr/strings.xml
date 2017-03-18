@@ -35,5 +35,6 @@
     <string name="about_btnDonate">Faire un don</string>
 
     <string name="about_shareWith">Partager avec&#8230;</string>
+    <string name="wear_about_confirmation_openedOnPhone">Ouvert sur téléphone</string>
 
 </resources>

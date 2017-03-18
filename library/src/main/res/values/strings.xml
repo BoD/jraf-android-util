@@ -43,5 +43,6 @@
 
     <string name="about_shareWith">Share with&#8230;</string>
     <string name="about_donatePaypalLink" translatable="false"><![CDATA[https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=BoD%%40JRAF%%2eorg&lc=US&item_name=Donate%%20to%%20BoD&item_number=Donate%%20to%%20BoD&no_note=0&currency_code=USD&bn=PP%%2dDonationsBF%%3abtn_donateCC_LG%%2egif%%3aNonHostedGuest%s]]></string>
+    <string name="wear_about_confirmation_openedOnPhone">Opened on phone</string>
 
 </resources>
