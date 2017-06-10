@@ -31,16 +31,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.WorkerThread;
 
+import timber.log.Timber;
+
 import org.jraf.android.util.log.timber.FileTree;
 import org.jraf.android.util.log.timber.LogcatTree;
-
-import timber.log.Timber;
 
 public class Log {
     private static final int MAX_LOG_SIZE_BYTES = 2 * 1024 * 1024; // 2 Megs
     private static FileTree sFileTree;
+    private static boolean sDebugLogs;
 
-    public static void init(Context context, String applicationTag) {
+    public static void init(Context context, String applicationTag, boolean debugLogs) {
+        sDebugLogs = debugLogs;
+
         // Log to Android logcat
         Timber.plant(new LogcatTree(applicationTag));
 
@@ -59,32 +62,32 @@ public class Log {
      * Log a verbose message with optional format args.
      */
     public static void v(String message, Object... args) {
-        Timber.v(message, args);
+        if (sDebugLogs) Timber.v(message, args);
     }
 
     /**
      * Log a verbose exception and a message with optional format args.
      */
     public static void v(Throwable t, String message, Object... args) {
-        Timber.v(t, message, args);
+        if (sDebugLogs) Timber.v(t, message, args);
     }
 
     /**
      * Log a debug message with optional format args.
      */
     public static void d(String message, Object... args) {
-        Timber.d(message, args);
+        if (sDebugLogs) Timber.d(message, args);
     }
 
     public static void d() {
-        Timber.d(" ");
+        if (sDebugLogs) Timber.d(" ");
     }
 
     /**
      * Log a debug exception and a message with optional format args.
      */
     public static void d(Throwable t, String message, Object... args) {
-        Timber.d(t, message, args);
+        if (sDebugLogs) Timber.d(t, message, args);
     }
 
     /**
