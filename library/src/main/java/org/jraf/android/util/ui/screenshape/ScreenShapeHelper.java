@@ -82,4 +82,13 @@ public class ScreenShapeHelper {
         }
         isInitialized = true;
     }
+
+    /**
+     * Calculate the margin in pixels that allows a rectangular content to be safely displayed on round displays.<br/>
+     * The ratio parameter is the width to height ratio of the rectangle to fit (must be between 0 and 1 - the height is 1).
+     * For any questions about this formula, please ask c@rmen.ca :)
+     */
+    public float getSafeMargin(float ratio) {
+        return (float) ((width / 2) * (1.0 - (1.0 / Math.sqrt(1 + ratio * ratio))));
+    }
 }
