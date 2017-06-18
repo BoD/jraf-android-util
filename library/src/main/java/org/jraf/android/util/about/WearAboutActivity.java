@@ -32,7 +32,6 @@ import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.wearable.view.ConfirmationOverlay;
 import android.text.Html;
 import android.view.View;
@@ -97,21 +96,6 @@ public class WearAboutActivity extends Activity {
 
     private void openUri(String uri) {
         openOnPhone(Uri.parse(uri));
-    }
-
-    public void onShareClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, mParams.shareTextSubject);
-        String shareTextBody = String.format(mParams.shareTextBody, getPackageName());
-        intent.putExtra(Intent.EXTRA_TEXT, shareTextBody);
-        intent.putExtra("sms_body", shareTextBody);
-        intent = Intent.createChooser(intent, getString(R.string.about_shareWith));
-        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-
-        sendBroadcast((new Intent("com.google.android.wearable.intent.action.REMOTE_INTENT")).setPackage("com.google.android.wearable.app")
-                .putExtra("com.google.android.wearable.intent.extra.INTENT", intent).putExtra("com.google.android.wearable.intent.extra.NODE_ID", (String) null)
-                .putExtra("com.google.android.wearable.intent.extra.RESULT_RECEIVER", (Parcelable) null));
     }
 
     public void onRateClick(View view) {

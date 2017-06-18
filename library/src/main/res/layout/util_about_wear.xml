@@ -91,39 +91,6 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="@{ScreenShapeHelper.get(context).safeMargin * 1.5F}">
 
-                <!-- Share -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/action_item_background"
-                    android:onClick="onShareClick"
-                    android:orientation="horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
-                    android:paddingRight="@{ScreenShapeHelper.get(context).safeMargin / 2F + @dimen/about_wear_padding_horizontal}"
-                    android:paddingTop="8dp">
-
-                    <ImageView
-                        android:layout_width="@dimen/action_drawer_item_icon_size"
-                        android:layout_height="@dimen/action_drawer_item_icon_size"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
-                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
-                        android:background="@drawable/action_item_icon_background"
-                        android:padding="@dimen/action_drawer_item_icon_padding"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/util_ic_share_dark"
-                        android:tint="?android:attr/colorBackground"
-                        tools:ignore="ContentDescription" />
-
-                    <TextView
-                        style="@style/WearableActionDrawerItemText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/about_btnShare" />
-
-                </LinearLayout>
-
                 <!-- Rate -->
                 <LinearLayout
                     android:layout_width="match_parent"
