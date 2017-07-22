@@ -95,7 +95,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/action_item_background"
+                    android:background="@drawable/action_item_bg"
                     android:onClick="onRateClick"
                     android:orientation="horizontal"
                     android:paddingBottom="8dp"
@@ -104,20 +104,20 @@
                     android:paddingTop="8dp">
 
                     <ImageView
-                        android:layout_width="@dimen/action_drawer_item_icon_size"
-                        android:layout_height="@dimen/action_drawer_item_icon_size"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
-                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
-                        android:background="@drawable/action_item_icon_background"
-                        android:padding="@dimen/action_drawer_item_icon_padding"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/action_item_icon_bg"
+                        android:padding="8dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/util_ic_rate_dark"
                         android:tint="?android:attr/colorBackground"
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        style="@style/WearableActionDrawerItemText"
+                        style="@style/UtilWearableActionDrawerItemText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/about_btnRate" />
@@ -128,7 +128,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/action_item_background"
+                    android:background="@drawable/action_item_bg"
                     android:onClick="onOtherAppsClick"
                     android:orientation="horizontal"
                     android:paddingBottom="8dp"
@@ -137,20 +137,20 @@
                     android:paddingTop="8dp">
 
                     <ImageView
-                        android:layout_width="@dimen/action_drawer_item_icon_size"
-                        android:layout_height="@dimen/action_drawer_item_icon_size"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/action_drawer_item_icon_right_margin"
-                        android:layout_marginRight="@dimen/action_drawer_item_icon_right_margin"
-                        android:background="@drawable/action_item_icon_background"
-                        android:padding="@dimen/action_drawer_item_icon_padding"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/action_item_icon_bg"
+                        android:padding="8dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/util_ic_other_apps_dark"
                         android:tint="?android:attr/colorBackground"
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        style="@style/WearableActionDrawerItemText"
+                        style="@style/UtilWearableActionDrawerItemText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/about_btnOtherApps" />

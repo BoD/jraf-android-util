@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+
+    <style name="UtilWearableActionDrawerItemText">
+        <item name="android:textSize">14sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:fontFamily">sans-serif-condensed-light</item>
+    </style>
+</resources>
