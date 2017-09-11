@@ -37,6 +37,7 @@ public class AboutActivityIntentBuilder {
     private String mGitSha1;
     private String mAuthorCopyright;
     private String mLicense;
+    private boolean mShowOpenSourceLicencesLink;
     private List<AboutActivityParams.Link> mLinkList = new ArrayList<>();
     private String mShareTextSubject;
     private String mShareTextBody;
@@ -95,6 +96,11 @@ public class AboutActivityIntentBuilder {
         return this;
     }
 
+    public AboutActivityIntentBuilder setShowOpenSourceLicencesLink(boolean showOpenSourceLicencesLink) {
+        mShowOpenSourceLicencesLink = showOpenSourceLicencesLink;
+        return this;
+    }
+
     public AboutActivityIntentBuilder setAuthorPlayStoreName(String authorPlayStoreName) {
         mAuthorPlayStoreName = authorPlayStoreName;
         return this;
@@ -106,8 +112,9 @@ public class AboutActivityIntentBuilder {
     }
 
     public Intent build(Context context) {
-        AboutActivityParams params = new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mLinkList, mShareTextSubject,
-                mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName, mSendLogsEmailAddress);
+        AboutActivityParams params =
+                new AboutActivityParams(mAppName, mBuildDate, mGitSha1, mAuthorCopyright, mLicense, mShowOpenSourceLicencesLink, mLinkList, mShareTextSubject,
+                        mShareTextBody, mBackgroundResId, mIsLightIcons, mAuthorPlayStoreName, mSendLogsEmailAddress);
 
         boolean isWatch = context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_WATCH);
         Class<?> activityClass = isWatch ? WearAboutActivity.class : AboutActivity.class;

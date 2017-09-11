@@ -32,7 +32,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,6 +102,38 @@ public class AboutActivity extends AppCompatActivity {
         ViewGroup conLinks = (ViewGroup) findViewById(R.id.conLinks);
         for (AboutActivityParams.Link link : mParams.linkList) {
             createLinkView(conLinks, link);
+        }
+
+        // Open sources licences
+        if (mParams.showOpenSourceLicencesLink) {
+            TextView res = (TextView) getLayoutInflater().inflate(R.layout.util_about_link, conLinks, false);
+            conLinks.addView(res);
+            res.setMovementMethod(LinkMovementMethod.getInstance());
+            Spanned spanned = Html.fromHtml(String.format("→ <a href=\"x\">%s</a>", getString(R.string.about_openSourceLicenses)));
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(spanned);
+            URLSpan[] urlSpans = spannableStringBuilder.getSpans(0, spanned.length(), URLSpan.class);
+            for (URLSpan urlSpan : urlSpans) {
+                int start = spannableStringBuilder.getSpanStart(urlSpan);
+                int end = spannableStringBuilder.getSpanEnd(urlSpan);
+                int flags = spannableStringBuilder.getSpanFlags(urlSpan);
+                ClickableSpan clickable = new ClickableSpan() {
+                    public void onClick(View view) {
+                        showOpenSourceLicences();
+                    }
+                };
+                spannableStringBuilder.setSpan(clickable, start, end, flags);
+                spannableStringBuilder.removeSpan(urlSpan);
+            }
+            res.setText(spannableStringBuilder);
+        }
+    }
+
+    private void showOpenSourceLicences() {
+        try {
+            Class<?> ossLicensesMenuActivityClass = Class.forName("com.google.android.gms.oss.licenses.OssLicensesMenuActivity");
+            startActivity(new Intent(this, ossLicensesMenuActivityClass));
+        } catch (ClassNotFoundException e) {
+            Log.e(e, "Could not find OssLicensesMenuActivity");
         }
     }
 

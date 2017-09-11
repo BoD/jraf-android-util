@@ -75,6 +75,7 @@ public class AboutActivityParams implements Parcelable {
     public String gitSha1;
     public String authorCopyright;
     public String license;
+    public boolean showOpenSourceLicencesLink;
     public List<Link> linkList = new ArrayList<>();
     public String shareTextSubject;
     public String shareTextBody;
@@ -83,14 +84,25 @@ public class AboutActivityParams implements Parcelable {
     public String authorPlayStoreName;
     public String sendLogsEmailAddress;
 
-    public AboutActivityParams(String appName, String buildDate, String gitSha1, String authorCopyright, String license, List<Link> linkList,
-                               String shareTextSubject, String shareTextBody, int backgroundResId, boolean isLightIcons, String authorPlayStoreName,
+    public AboutActivityParams(String appName,
+                               String buildDate,
+                               String gitSha1,
+                               String authorCopyright,
+                               String license,
+                               boolean showOpenSourceLicencesLink,
+                               List<Link> linkList,
+                               String shareTextSubject,
+                               String shareTextBody,
+                               int backgroundResId,
+                               boolean isLightIcons,
+                               String authorPlayStoreName,
                                String sendLogsEmailAddress) {
         this.appName = appName;
         this.buildDate = buildDate;
         this.gitSha1 = gitSha1;
         this.authorCopyright = authorCopyright;
         this.license = license;
+        this.showOpenSourceLicencesLink = showOpenSourceLicencesLink;
         this.linkList = linkList;
         this.shareTextSubject = shareTextSubject;
         this.shareTextBody = shareTextBody;
@@ -112,6 +124,7 @@ public class AboutActivityParams implements Parcelable {
         dest.writeString(gitSha1);
         dest.writeString(authorCopyright);
         dest.writeString(license);
+        dest.writeInt(showOpenSourceLicencesLink ? 1 : 0);
         dest.writeTypedList(linkList);
         dest.writeString(shareTextSubject);
         dest.writeString(shareTextBody);
@@ -127,6 +140,7 @@ public class AboutActivityParams implements Parcelable {
         gitSha1 = in.readString();
         authorCopyright = in.readString();
         license = in.readString();
+        showOpenSourceLicencesLink = in.readInt() == 1;
         in.readTypedList(linkList, Link.CREATOR);
         shareTextSubject = in.readString();
         shareTextBody = in.readString();
