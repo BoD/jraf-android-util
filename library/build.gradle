@@ -4,12 +4,12 @@ group = 'org.jraf'
 version = '1.0.0'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 27
     }
 
     buildTypes {
@@ -25,14 +25,14 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.0.2'
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
+    implementation "com.jakewharton.timber:timber:$versions.timber"
     implementation files('libs/http-request-5.3-SNAPSHOT.jar')
 
     // Wear
 //    compileOnly 'com.android.support:wear:26.0.2'
-    compileOnly 'com.google.android.support:wearable:2.0.5'
-    compileOnly 'com.google.android.wearable:wearable:2.0.5'
+    compileOnly "com.google.android.support:wearable:$versions.androidWearable"
+    compileOnly "com.google.android.wearable:wearable:$versions.androidWearable"
 }
 
 uploadArchives {
