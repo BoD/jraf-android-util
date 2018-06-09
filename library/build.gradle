@@ -5,7 +5,7 @@ version = '1.0.0'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion versions.buildTools
 
     defaultConfig {
         minSdkVersion 14
