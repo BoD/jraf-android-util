@@ -4,12 +4,11 @@ group = 'org.jraf'
 version = '1.0.0'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion versions.buildTools
+    compileSdkVersion versions.compileSdk
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion versions.targetSdk
     }
 
     buildTypes {
