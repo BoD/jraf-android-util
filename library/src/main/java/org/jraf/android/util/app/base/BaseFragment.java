@@ -24,7 +24,8 @@
 package org.jraf.android.util.app.base;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 
 public class BaseFragment<C> extends Fragment {
     private C mCallbacks;

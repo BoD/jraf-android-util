@@ -26,7 +26,8 @@ package org.jraf.android.util.app.base;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
 
 public class BaseFrameworkFragment<C> extends Fragment {
     private C mCallbacks;

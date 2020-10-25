@@ -23,7 +23,7 @@
  */
 package org.jraf.android.util.app.base;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseAppCompatActivity extends AppCompatActivity {
     protected BaseAppCompatActivity thiz = this;

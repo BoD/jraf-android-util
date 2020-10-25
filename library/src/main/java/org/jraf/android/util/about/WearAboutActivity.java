@@ -28,7 +28,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +38,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.wearable.intent.RemoteIntent;
+
+import androidx.databinding.DataBindingUtil;
 
 import org.jraf.android.util.R;
 import org.jraf.android.util.databinding.UtilAboutWearBinding;

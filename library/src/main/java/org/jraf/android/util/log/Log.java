@@ -23,14 +23,14 @@
  */
 package org.jraf.android.util.log;
 
-
 import java.io.File;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.WorkerThread;
+import androidx.core.content.FileProvider;
 import timber.log.Timber;
 
 import org.jraf.android.util.log.timber.FileTree;
@@ -171,9 +171,13 @@ public class Log {
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] {emailAddress});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Logs");
         intent.putExtra(Intent.EXTRA_TEXT, "See logs in attachment.");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(logFile));
+        intent.putExtra(Intent.EXTRA_STREAM, getUriForFile(context, logFile));
         intent.setType("message/rfc882");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         context.startActivity(intent);
+    }
+
+    private static Uri getUriForFile(Context context, File file) {
+        return FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider.files", file);
     }
 }

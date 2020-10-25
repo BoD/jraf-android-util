@@ -23,7 +23,7 @@
  */
 package org.jraf.android.util.app.base;
 
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 
 public class BaseFragmentActivity extends FragmentActivity {
     protected BaseFragmentActivity thiz = this;

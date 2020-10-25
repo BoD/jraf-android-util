@@ -23,9 +23,10 @@
  */
 package org.jraf.android.util.async;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 public abstract class Task<T extends FragmentActivity> {
     private Fragment mFragment;

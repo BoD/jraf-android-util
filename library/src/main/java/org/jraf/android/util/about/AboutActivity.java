@@ -24,13 +24,13 @@
  */
 package org.jraf.android.util.about;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -46,6 +46,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.jraf.android.util.R;
 import org.jraf.android.util.log.Log;
@@ -146,7 +149,8 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    @SuppressLint("MissingSuperCall")
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         // Do not call super - we don't want to save the state because the view hierarchy differs in
         // portrait and landscape.
     }
